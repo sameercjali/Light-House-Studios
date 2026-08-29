@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Raleway',sans-serif;background:#0d0d0d;color:#fff;overflow-x:hidden}
+.container{width:100%;max-width:1500px;margin:0 auto;padding:55px 35px 90px}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4.8rem);font-weight:700;letter-spacing:2px;color:#ffcc00;text-align:center;line-height:1;margin:0;opacity:0;transform:translateY(-35px);animation:fadeDown 1s cubic-bezier(.16,1,.3,1) forwards}
+.page-title::after{content:"";display:block;width:90px;height:3px;margin:20px auto 0;background:#ffcc00;border-radius:10px}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-35px)}to{opacity:1;transform:translateY(0)}}
+.events{margin-top:70px;display:flex;flex-direction:column;gap:105px}
+.event{width:100%;opacity:0;transform:translateY(35px);animation:eventIn .9s ease forwards}
+@keyframes eventIn{to{opacity:1;transform:translateY(0)}}
+.event-intro{display:grid;grid-template-columns:minmax(180px,1fr) minmax(420px,2fr) minmax(220px,1fr);align-items:center;gap:55px}
+.event-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,3.5rem);line-height:1.25;text-align:center;color:#fff}
+.event-main{width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#151515;box-shadow:0 25px 65px rgba(0,0,0,.6);border:1px solid #292929}
+.event-main img{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;transition:transform .5s ease}
+.event-main:hover img{transform:scale(1.035)}
+.event-description{font-family:'Playfair Display',serif;font-size:clamp(1rem,1.35vw,1.35rem);line-height:1.8;color:#f2f2f2;text-align:center}
+.event-gallery{margin-top:38px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.gallery-item{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:14px;background:#151515;border:1px solid #292929;cursor:pointer;opacity:0;transform:translateY(20px);animation:galleryIn .7s ease forwards}
+@keyframes galleryIn{to{opacity:1;transform:translateY(0)}}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+.gallery-item:hover img{transform:scale(1.08)}
+.no-gallery{color:#666;text-align:center;font-size:13px;padding:15px;grid-column:1/-1}
+.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.96);align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:86vh;border-radius:10px;object-fit:contain;box-shadow:0 10px 50px rgba(0,0,0,.8)}
+.lightbox .close,.lightbox .nav{position:absolute;z-index:2;color:#fff;cursor:pointer;user-select:none;background:none;border:0}
+.lightbox .close{top:18px;right:30px;font-size:42px;line-height:1}
+.lightbox .nav{top:50%;transform:translateY(-50%);font-size:52px;padding:20px}
+.lightbox .prev{left:5px}.lightbox .next{right:5px}
+@media(max-width:900px){
+ .container{padding:42px 18px 65px}.events{margin-top:50px;gap:70px}
+ .event-intro{grid-template-columns:1fr;gap:22px}.event-title{font-size:2.35rem;order:1}.event-main{order:2;border-radius:17px}.event-description{order:3;font-size:1rem;line-height:1.7;padding:0 8px}
+ .event-gallery{margin-top:25px;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+}
+@media(max-width:450px){
+ .container{padding:35px 12px 55px}.page-title{font-size:2.35rem}.page-title::after{width:75px;margin-top:15px}.events{margin-top:42px;gap:58px}.event-title{font-size:2rem}.event-main{border-radius:14px}.event-description{font-size:.93rem;line-height:1.65}.event-gallery{gap:9px}.gallery-item{border-radius:10px}.lightbox img{max-width:94vw;max-height:80vh}.lightbox .nav{font-size:38px;padding:12px}.lightbox .close{right:17px;font-size:35px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="container">
+<h1 class="page-title">PORTFOLIO</h1>
+<section class="events" id="events"><p style="text-align:center;color:#888">Loading portfolio...</p></section>
+</main>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+<button class="close" id="closeBtn" type="button" aria-label="Close">&times;</button>
+<button class="nav prev" id="prevBtn" type="button" aria-label="Previous">&#10094;</button>
+<img id="lightboxImg" src="" alt="Portfolio image">
+<button class="nav next" id="nextBtn" type="button" aria-label="Next">&#10095;</button>
+</div>
+<script type="module">
+import { getCollection } from "./dynamic-content.js";
+const eventsContainer=document.getElementById("events");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightboxImg");
+const closeBtn=document.getElementById("closeBtn");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+let lightboxImages=[];let currentIndex=0;
+function normalizeGallery(item){
+ if(Array.isArray(item.gallery)) return item.gallery.map(x=>typeof x==="string"?{imageUrl:x}:x).filter(x=>x&&x.imageUrl);
+ if(item.imageUrl) return [{imageUrl:item.imageUrl,title:item.title||""}];
+ return [];
+}
+function rebuildLightbox(){lightboxImages=Array.from(document.querySelectorAll(".portfolio-lightbox-image")).map(img=>({src:img.dataset.full||img.src,alt:img.alt||"Portfolio image"}));}
+function openLightbox(index){if(!lightboxImages.length)return;currentIndex=(index+lightboxImages.length)%lightboxImages.length;lightboxImg.src=lightboxImages[currentIndex].src;lightboxImg.alt=lightboxImages[currentIndex].alt;lightbox.classList.add("open");lightbox.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+function closeLightbox(){lightbox.classList.remove("open");lightbox.setAttribute("aria-hidden","true");document.body.style.overflow="";}
+function showLightbox(index){if(!lightboxImages.length)return;currentIndex=(index+lightboxImages.length)%lightboxImages.length;lightboxImg.src=lightboxImages[currentIndex].src;lightboxImg.alt=lightboxImages[currentIndex].alt;}
+async function loadPortfolio(){
+ try{
+  let items=await getCollection("portfolio","order");
+  if(!Array.isArray(items))items=[];
+  eventsContainer.innerHTML="";
+  if(!items.length){eventsContainer.innerHTML='<p style="text-align:center;color:#888">No published events yet.</p>';return;}
+  items.forEach((item,eventIndex)=>{
+   const gallery=normalizeGallery(item);const mainImage=item.mainImageUrl||item.imageUrl||"";
+   const event=document.createElement("article");event.className="event";event.style.animationDelay=`${eventIndex*.08}s`;
+   const intro=document.createElement("div");intro.className="event-intro";
+   const title=document.createElement("h2");title.className="event-title";title.textContent=item.title||"Untitled Event";
+   const main=document.createElement("div");main.className="event-main";
+   if(mainImage){const img=document.createElement("img");img.className="portfolio-lightbox-image";img.src=mainImage;img.dataset.full=mainImage;img.alt=item.title?`${item.title} main image`:"Event main image";main.appendChild(img)}else main.innerHTML='<div style="height:100%;display:grid;place-items:center;color:#666">No main image</div>';
+   const desc=document.createElement("p");desc.className="event-description";desc.textContent=item.description||"";
+   intro.append(title,main,desc);
+   const galleryEl=document.createElement("div");galleryEl.className="event-gallery";
+   gallery.forEach((photo,photoIndex)=>{const wrapper=document.createElement("div");wrapper.className="gallery-item";wrapper.style.animationDelay=`${eventIndex*.08+photoIndex*.06}s`;const img=document.createElement("img");img.className="portfolio-lightbox-image";img.src=photo.imageUrl;img.dataset.full=photo.imageUrl;img.alt=photo.title||`${item.title||"Event"} image ${photoIndex+1}`;wrapper.appendChild(img);galleryEl.appendChild(wrapper)});
+   if(!galleryEl.children.length)galleryEl.innerHTML='<div class="no-gallery">No additional event images.</div>';
+   event.append(intro,galleryEl);eventsContainer.appendChild(event);
+  });
+  rebuildLightbox();
+  document.querySelectorAll(".portfolio-lightbox-image").forEach(img=>img.addEventListener("click",()=>{const i=lightboxImages.findIndex(x=>x.src===img.dataset.full);openLightbox(i>=0?i:0)}));
+ }catch(error){console.error("Portfolio loading error:",error);eventsContainer.innerHTML='<p style="text-align:center;color:#888">Unable to load portfolio.</p>';}
+}
+closeBtn.addEventListener("click",closeLightbox);prevBtn.addEventListener("click",()=>showLightbox(currentIndex-1));nextBtn.addEventListener("click",()=>showLightbox(currentIndex+1));lightbox.addEventListener("click",e=>{if(e.target===lightbox)closeLightbox()});document.addEventListener("keydown",e=>{if(!lightbox.classList.contains("open"))return;if(e.key==="Escape")closeLightbox();if(e.key==="ArrowLeft")showLightbox(currentIndex-1);if(e.key==="ArrowRight")showLightbox(currentIndex+1)});loadPortfolio();
+</script>
+</body>
+</html>

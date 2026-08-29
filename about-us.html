@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Us</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap"
+rel="stylesheet"
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+
+  margin: 0;
+  padding: 0;
+
+  background: #0b0b0b;
+  color: #FFCC00;
+
+  font-family: 'Raleway', sans-serif;
+
+  overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.container {
+
+  width: 100%;
+  max-width: 1450px;
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  padding:
+    45px 40px
+    55px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+h1 {
+
+  font-family:
+    'Playfair Display',
+    serif;
+
+  font-size:
+    clamp(
+      2.2rem,
+      4vw,
+      3.4rem
+    );
+
+  font-weight: 700;
+
+  letter-spacing: 4px;
+
+  margin:
+    0 0 40px;
+
+  color: #FFCC00;
+
+  text-align: center;
+
+  position: relative;
+
+  opacity: 0;
+
+  animation:
+    titleReveal
+    1s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    forwards;
+
+}
+
+
+h1::after {
+
+  content: "";
+
+  width: 60px;
+  height: 2px;
+
+  background: #d6ad55;
+
+  display: block;
+
+  margin:
+    10px
+    auto
+    0;
+
+}
+
+
+@keyframes titleReveal {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(-30px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+/* =====================================================
+   CONTENT AREA
+===================================================== */
+
+#content {
+
+  width: 100%;
+
+  max-width: 1100px;
+
+  min-height: 560px;
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+}
+
+
+/* =====================================================
+   PROFILE LAYOUT
+===================================================== */
+
+.profile {
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(330px, 430px)
+    minmax(300px, 1fr);
+
+  gap: 70px;
+
+  align-items: center;
+
+  position: relative;
+
+}
+
+
+/* =====================================================
+   PHOTO SIDE
+===================================================== */
+
+.photo-area {
+
+  position: relative;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  min-height: 470px;
+
+}
+
+
+/* =====================================================
+   PREMIUM PHOTO CARD
+===================================================== */
+
+.photo-card {
+
+  position: relative;
+
+  width: 100%;
+
+  max-width: 390px;
+
+  height: 470px;
+
+  overflow: hidden;
+
+  background: #151515;
+
+  box-shadow:
+    0 30px 80px
+    rgba(0, 0, 0, 0.55);
+
+  transform-origin: center;
+
+  z-index: 2;
+
+}
+
+
+/*
+   Gold offset frame
+*/
+
+.photo-card::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  width: 100%;
+  height: 100%;
+
+  border:
+    1px solid
+    rgba(214, 173, 85, 0.65);
+
+  z-index: -1;
+
+  pointer-events: none;
+
+}
+
+
+.photo-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 55%,
+      rgba(0,0,0,0.45)
+    );
+
+  pointer-events: none;
+
+  z-index: 2;
+
+}
+
+
+.profile-photo {
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  filter:
+    grayscale(100%)
+    contrast(1.05)
+    brightness(0.95);
+
+  transition:
+    filter 0.6s ease,
+    transform 0.8s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    );
+
+}
+
+
+.photo-card:hover
+.profile-photo {
+
+  filter:
+    grayscale(0%)
+    contrast(1)
+    brightness(1);
+
+  transform:
+    scale(1.035);
+
+}
+
+
+/* =====================================================
+   PHOTO ENTER ANIMATIONS
+===================================================== */
+
+.profile.enter-right
+.photo-card {
+
+  animation:
+    photoEnterRight
+    0.75s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    forwards;
+
+}
+
+
+.profile.enter-left
+.photo-card {
+
+  animation:
+    photoEnterLeft
+    0.75s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes photoEnterRight {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateX(100px)
+      scale(0.84)
+      rotate(2deg);
+
+  }
+
+  60% {
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      scale(1)
+      rotate(0);
+
+  }
+
+}
+
+
+@keyframes photoEnterLeft {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateX(-100px)
+      scale(0.84)
+      rotate(-2deg);
+
+  }
+
+  60% {
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      scale(1)
+      rotate(0);
+
+  }
+
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.profile-info {
+
+  max-width: 570px;
+
+  text-align: left;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+}
+
+
+/* =====================================================
+   TEXT ANIMATION
+===================================================== */
+
+.profile.enter-right
+.profile-info {
+
+  animation:
+    textEnter
+    0.65s
+    0.15s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    both;
+
+}
+
+
+.profile.enter-left
+.profile-info {
+
+  animation:
+    textEnter
+    0.65s
+    0.15s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    both;
+
+}
+
+
+@keyframes textEnter {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(22px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+/* =====================================================
+   SMALL LABEL
+===================================================== */
+
+.profile-label {
+
+  color: #d6ad55;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 15px;
+
+}
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+.profile-name {
+
+  font-family:
+    'Playfair Display',
+    serif;
+
+  font-size:
+    clamp(
+      2.5rem,
+      4.8vw,
+      4.6rem
+    );
+
+  line-height: 0.95;
+
+  font-weight: 600;
+
+  margin: 0 0 20px;
+
+  letter-spacing: -2px;
+
+  color: #FFCC00;
+
+}
+
+
+/* =====================================================
+   POSITION
+===================================================== */
+
+.profile-position {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: #d6ad55;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 2.3px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 25px;
+
+}
+
+
+.profile-position::before {
+
+  content: "";
+
+  width: 38px;
+
+  height: 1px;
+
+  background: #d6ad55;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =====================================================
+   BIO
+===================================================== */
+
+.profile-description {
+
+  max-width: 520px;
+
+  margin: 0;
+
+  color: #bcbcbc;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  line-height: 1.85;
+
+  letter-spacing: 0.2px;
+
+}
+
+
+/* =====================================================
+   DECORATIVE LINE
+===================================================== */
+
+.info-line {
+
+  width: 100%;
+
+  max-width: 520px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      to right,
+      #333,
+      transparent
+    );
+
+  margin:
+    25px
+    0
+    0;
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.profile-navigation {
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 45px;
+
+  padding:
+    0 10px;
+
+}
+
+
+/* =====================================================
+   NAV BUTTON
+===================================================== */
+
+.nav-button {
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    #333;
+
+  background:
+    rgba(255,255,255,0.02);
+
+  color: #FFCC00;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition:
+    all 0.35s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    );
+
+}
+
+
+.nav-button:hover {
+
+  background: #d6ad55;
+
+  color: #111;
+
+  border-color:
+    #d6ad55;
+
+  transform:
+    scale(1.12);
+
+  box-shadow:
+    0 10px 30px
+    rgba(
+      214,
+      173,
+      85,
+      0.18
+    );
+
+}
+
+
+.nav-button:active {
+
+  transform:
+    scale(0.94);
+
+}
+
+
+/* =====================================================
+   COUNTER
+===================================================== */
+
+.profile-counter {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  color: #555;
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+}
+
+
+.profile-counter .current {
+
+  color: #FFCC00;
+
+  font-family:
+    'Playfair Display',
+    serif;
+
+  font-size: 22px;
+
+}
+
+
+.profile-counter .line {
+
+  width: 50px;
+
+  height: 1px;
+
+  background: #333;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading,
+.no-content {
+
+  width: 100%;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
+
+  padding: 60px 20px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 950px) {
+
+  .container {
+
+    padding:
+      40px 20px
+      50px;
+
+  }
+
+
+  h1 {
+
+    margin-bottom: 35px;
+
+  }
+
+
+  #content {
+
+    min-height: auto;
+
+  }
+
+
+  .profile {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 45px;
+
+    max-width: 600px;
+
+    margin: 0 auto;
+
+  }
+
+
+  .photo-area {
+
+    min-height: auto;
+
+  }
+
+
+  .photo-card {
+
+    height:
+      min(
+        560px,
+        70vh
+      );
+
+  }
+
+
+  .profile-info {
+
+    align-items: center;
+
+    text-align: center;
+
+    max-width: 100%;
+
+  }
+
+
+  .profile-name {
+
+    font-size:
+      clamp(
+        2.6rem,
+        9vw,
+        4rem
+      );
+
+  }
+
+
+  .profile-position {
+
+    justify-content: center;
+
+  }
+
+
+  .profile-description {
+
+    max-width: 550px;
+
+  }
+
+
+  .info-line {
+
+    background:
+      linear-gradient(
+        to right,
+        transparent,
+        #333,
+        transparent
+      );
+
+  }
+
+
+  .profile-navigation {
+
+    margin-top: 35px;
+
+  }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+  .container {
+
+    padding:
+      35px 15px
+      45px;
+
+  }
+
+
+  h1 {
+
+    font-size:
+      2.1rem;
+
+    letter-spacing:
+      3px;
+
+  }
+
+
+  .profile {
+
+    gap: 35px;
+
+  }
+
+
+  .photo-card {
+
+    height: 390px;
+
+  }
+
+
+  .photo-card::before {
+
+    top: 9px;
+    left: 9px;
+
+  }
+
+
+  .profile-name {
+
+    font-size: 2.4rem;
+
+  }
+
+
+  .profile-position {
+
+    font-size: 10px;
+
+    letter-spacing:
+      1.5px;
+
+    line-height: 1.6;
+
+  }
+
+
+  .profile-description {
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+  }
+
+
+  .nav-button {
+
+    width: 44px;
+    height: 44px;
+
+    font-size: 18px;
+
+  }
+
+
+  .profile-counter .current {
+
+    font-size: 20px;
+
+  }
+
+
+  .profile-counter .line {
+
+    width: 32px;
+
+  }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+
+    scroll-behavior:
+      auto !important;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="container">
+
+
+<h1>
+  ABOUT US
+</h1>
+
+
+<div id="content">
+
+  <div class="loading">
+    Loading...
+  </div>
+
+</div>
+
+
+</main>
+
+
+
+<script type="module">
+
+import {
+  getCollection
+} from "./dynamic-content.js";
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let people = [];
+
+let currentIndex = 0;
+
+let isAnimating = false;
+
+
+
+/* =====================================================
+   LOAD ABOUT US
+===================================================== */
+
+async function loadAboutUs() {
+
+  const container =
+    document.getElementById(
+      "content"
+    );
+
+
+  try {
+
+    const items =
+      await getCollection(
+        "blogs"
+      );
+
+
+    if (!items.length) {
+
+      container.innerHTML = `
+
+        <div class="no-content">
+
+          No About Us content
+          available yet.
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    people = items;
+
+    currentIndex = 0;
+
+
+    renderProfile(
+      currentIndex,
+      "initial"
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "About Us loading error:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div class="no-content">
+
+        Unable to load
+        About Us content.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+
+/* =====================================================
+   PARSE POSITION + BIO
+===================================================== */
+
+function parseDescription(
+  description = ""
+) {
+
+  const text =
+    String(description)
+      .trim();
+
+
+  if (!text) {
+
+    return {
+
+      position: "",
+
+      biography: ""
+
+    };
+
+  }
+
+
+  const lines =
+    text.split(/\r?\n/);
+
+
+  if (lines.length > 1) {
+
+    return {
+
+      position:
+        lines[0].trim(),
+
+      biography:
+        lines
+          .slice(1)
+          .join("\n")
+          .trim()
+
+    };
+
+  }
+
+
+  /*
+   * If the position and biography
+   * are in one paragraph.
+   */
+
+  const sentenceMatch =
+    text.match(
+      /^(.{1,100}?)(?:\.\s+)(.+)$/
+    );
+
+
+  if (sentenceMatch) {
+
+    return {
+
+      position:
+        sentenceMatch[1]
+          .trim(),
+
+      biography:
+        sentenceMatch[2]
+          .trim()
+
+    };
+
+  }
+
+
+  return {
+
+    position: "",
+
+    biography: text
+
+  };
+
+}
+
+
+
+/* =====================================================
+   RENDER PROFILE
+===================================================== */
+
+function renderProfile(
+  index,
+  animationClass = ""
+) {
+
+  const person =
+    people[index];
+
+
+  if (!person)
+    return;
+
+
+  const container =
+    document.getElementById(
+      "content"
+    );
+
+
+  const parsed =
+    parseDescription(
+      person.description
+    );
+
+
+  container.innerHTML = `
+
+    <div
+      class="profile ${animationClass}"
+    >
+
+
+      <!-- ==========================================
+           PHOTO
+      =========================================== -->
+
+      <div class="photo-area">
+
+        <div class="photo-card">
+
+          ${
+            person.imageUrl
+
+              ? `
+
+                <img
+                  class="profile-photo"
+                  src="${escapeHtml(
+                    person.imageUrl
+                  )}"
+                  alt="${escapeHtml(
+                    person.title ||
+                    "Team member"
+                  )}"
+                >
+
+              `
+
+              : `
+
+                <div
+                  style="
+                    width:100%;
+                    height:100%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#151515;
+                    color:#555;
+                    font-size:13px;
+                  "
+                >
+                  No Photo
+                </div>
+
+              `
+          }
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ==========================================
+           INFORMATION
+      =========================================== -->
+
+      <div class="profile-info">
+
+
+        <div class="profile-label">
+        
+        </div>
+
+
+        <h2 class="profile-name">
+
+          ${escapeHtml(
+            person.title ||
+            "About Us"
+          )}
+
+        </h2>
+
+
+        ${
+          parsed.position
+
+            ? `
+
+              <div
+                class="profile-position"
+              >
+
+                ${escapeHtml(
+                  parsed.position
+                )}
+
+              </div>
+
+            `
+
+            : ""
+
+        }
+
+
+        <p
+          class="profile-description"
+        >
+
+          ${escapeHtml(
+            parsed.biography
+          )}
+
+        </p>
+
+
+        <div
+          class="info-line"
+        ></div>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- ==========================================
+         NAVIGATION
+    =========================================== -->
+
+    <div
+      class="profile-navigation"
+    >
+
+
+      <button
+        class="nav-button"
+        id="previousBtn"
+        type="button"
+        aria-label="Previous person"
+      >
+        ←
+      </button>
+
+
+
+      <div
+        class="profile-counter"
+      >
+
+        <span class="current">
+
+          ${String(
+            index + 1
+          ).padStart(2, "0")}
+
+        </span>
+
+
+        <span class="line"></span>
+
+
+        <span>
+
+          ${String(
+            people.length
+          ).padStart(2, "0")}
+
+        </span>
+
+      </div>
+
+
+
+      <button
+        class="nav-button"
+        id="nextBtn"
+        type="button"
+        aria-label="Next person"
+      >
+        →
+      </button>
+
+
+    </div>
+
+  `;
+
+
+
+  /* =================================================
+     BUTTON EVENTS
+  ================================================= */
+
+  document
+    .getElementById(
+      "previousBtn"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        changeProfile(-1);
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "nextBtn"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        changeProfile(1);
+
+      }
+    );
+
+}
+
+
+
+/* =====================================================
+   CHANGE PROFILE
+===================================================== */
+
+function changeProfile(
+  direction
+) {
+
+  if (
+    isAnimating ||
+    people.length <= 1
+  ) {
+
+    return;
+
+  }
+
+
+  isAnimating = true;
+
+
+  const profile =
+    document.querySelector(
+      ".profile"
+    );
+
+
+  if (!profile) {
+
+    isAnimating = false;
+
+    return;
+
+  }
+
+
+  /*
+   * Calculate next person first.
+   */
+
+  currentIndex =
+    (
+      currentIndex +
+      direction +
+      people.length
+    ) %
+    people.length;
+
+
+  /*
+   * Remove current profile.
+   * Then immediately render
+   * the new profile with the
+   * correct entrance direction.
+   */
+
+  profile.style.pointerEvents =
+    "none";
+
+
+  setTimeout(
+    () => {
+
+      renderProfile(
+
+        currentIndex,
+
+        direction > 0
+          ? "enter-right"
+          : "enter-left"
+
+      );
+
+
+      /*
+       * Allow another navigation
+       * after animation completes.
+       */
+
+      setTimeout(
+        () => {
+
+          isAnimating = false;
+
+        },
+        650
+      );
+
+    },
+    50
+  );
+
+}
+
+
+
+/* =====================================================
+   KEYBOARD NAVIGATION
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+
+    const tag =
+      document
+        .activeElement
+        ?.tagName;
+
+
+    /*
+     * Don't hijack arrow keys
+     * while typing.
+     */
+
+    if (
+
+      tag === "INPUT" ||
+
+      tag === "TEXTAREA" ||
+
+      tag === "SELECT"
+
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      event.key ===
+      "ArrowRight"
+    ) {
+
+      event.preventDefault();
+
+      changeProfile(1);
+
+    }
+
+
+    if (
+      event.key ===
+      "ArrowLeft"
+    ) {
+
+      event.preventDefault();
+
+      changeProfile(-1);
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   TOUCH SWIPE
+===================================================== */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+document.addEventListener(
+  "touchstart",
+  event => {
+
+    touchStartX =
+      event.changedTouches[0]
+        .screenX;
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+document.addEventListener(
+  "touchend",
+  event => {
+
+    touchEndX =
+      event.changedTouches[0]
+        .screenX;
+
+
+    const distance =
+      touchEndX -
+      touchStartX;
+
+
+    if (
+      Math.abs(distance) <
+      60
+    ) {
+
+      return;
+
+    }
+
+
+    if (distance < 0) {
+
+      changeProfile(1);
+
+    }
+
+    else {
+
+      changeProfile(-1);
+
+    }
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(
+  value = ""
+) {
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadAboutUs();
+
+</script>
+
+
+</body>
+</html>

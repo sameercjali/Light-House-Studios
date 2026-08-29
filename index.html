@@ -1,0 +1,3747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>My Portfolio</title>
+
+
+  <style>
+
+    /* =====================================================
+       RESET & BASE
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        "Poppins",
+        system-ui,
+        -apple-system,
+        sans-serif;
+
+      background: #0d0d0d;
+      color: #fff;
+
+      overflow-x: hidden;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+
+      outline:
+        2px solid #ffcc00;
+
+      outline-offset: 4px;
+
+    }
+
+
+    /* =====================================================
+       INTRO VIDEO
+    ===================================================== */
+
+    #introVideo {
+
+      position: fixed;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100vh;
+
+      background: #000;
+
+      z-index: 9999;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      opacity: 1;
+
+      transition:
+        opacity 1.2s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        );
+
+      pointer-events: all;
+
+    }
+
+
+    #introVideo video {
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      display: block;
+
+    }
+
+
+    #introVideo.fade-out {
+
+      opacity: 0;
+
+      pointer-events: none;
+
+    }
+
+
+    #introVideo.hidden {
+
+      display: none;
+
+    }
+
+
+    /* =====================================================
+       BACKGROUND VIDEO
+    ===================================================== */
+
+    video.bg-video {
+
+      position: fixed;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      z-index: -10;
+
+      filter:
+        brightness(0.6);
+
+      opacity: 1;
+
+      transition:
+        opacity 0.8s ease-out;
+
+      will-change: opacity;
+
+      pointer-events: none;
+
+    }
+
+
+    video.bg-video.hidden {
+
+      opacity: 0;
+
+    }
+
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+
+    nav {
+
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+
+      z-index: 100;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      height: 55px;
+
+      padding:
+        12px 20px;
+
+      background:
+        rgba(0, 0, 0, 0.65);
+
+      backdrop-filter:
+        blur(10px);
+
+      -webkit-backdrop-filter:
+        blur(10px);
+
+    }
+
+
+    /* =====================================================
+       COMPANY LOGO
+    ===================================================== */
+
+    .nav-logo {
+
+      position: absolute;
+
+      left: 25px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      display: flex;
+
+      align-items: center;
+
+      text-decoration: none;
+
+      z-index: 101;
+
+    }
+
+
+    .nav-logo img {
+
+      width: 58px;
+
+      height: 58px;
+
+      object-fit: contain;
+
+      display: block;
+
+    }
+
+
+    /* =====================================================
+       DESKTOP NAVIGATION
+    ===================================================== */
+
+    nav ul {
+
+      list-style: none;
+
+      display: flex;
+
+      gap: 30px;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    nav ul li a {
+
+      display: inline-block;
+
+      text-decoration: none;
+
+      color: #fff;
+
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+
+    }
+
+
+    nav ul li a:hover {
+
+      color: #ffcc00;
+
+      transform:
+        translateY(-2px);
+
+    }
+
+
+    /* =====================================================
+       MOBILE MENU BUTTON
+    ===================================================== */
+
+    .mobile-menu-btn {
+
+      display: none;
+
+      position: absolute;
+
+      right: 15px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      width: 44px;
+      height: 44px;
+
+      border: 1px solid
+        rgba(255,255,255,0.25);
+
+      border-radius: 50%;
+
+      background:
+        rgba(0,0,0,0.35);
+
+      color: #fff;
+
+      cursor: pointer;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex-direction: column;
+
+      gap: 5px;
+
+      z-index: 102;
+
+      transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+
+      appearance: none;
+      -webkit-appearance: none;
+
+    }
+
+
+    .mobile-menu-btn:hover {
+
+      background:
+        rgba(255,204,0,0.15);
+
+      border-color:
+        #ffcc00;
+
+    }
+
+
+    .mobile-menu-btn span {
+
+      width: 18px;
+
+      height: 2px;
+
+      background: #fff;
+
+      border-radius: 2px;
+
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+
+    }
+
+
+    .mobile-menu-btn.active span:nth-child(1) {
+
+      transform:
+        translateY(7px)
+        rotate(45deg);
+
+    }
+
+
+    .mobile-menu-btn.active span:nth-child(2) {
+
+      opacity: 0;
+
+    }
+
+
+    .mobile-menu-btn.active span:nth-child(3) {
+
+      transform:
+        translateY(-7px)
+        rotate(-45deg);
+
+    }
+
+
+    /* =====================================================
+       SECTIONS
+    ===================================================== */
+
+    section {
+
+      position: relative;
+
+      min-height: 100vh;
+
+      padding:
+        100px 20px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      text-align: center;
+
+      z-index: 1;
+
+      scroll-margin-top: 80px;
+
+      opacity: 0.2;
+
+      transform:
+        translate3d(
+          0,
+          40px,
+          0
+        )
+        scale(0.96);
+
+      transition:
+
+        opacity 0.8s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        ),
+
+        transform 0.8s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        );
+
+      will-change:
+        opacity,
+        transform;
+
+    }
+
+
+    section.in-view {
+
+      opacity: 1;
+
+      transform:
+        translate3d(
+          0,
+          0,
+          0
+        )
+        scale(1);
+
+    }
+
+
+    section::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background-size: cover;
+
+      background-position: center;
+
+      background-attachment: scroll;
+
+      z-index: -2;
+
+      opacity: 0;
+
+      transition:
+        opacity 1s ease-in-out;
+
+      will-change: opacity;
+
+    }
+
+
+    section.in-view::before {
+
+      opacity: 1;
+
+    }
+
+
+    #portfolio::after,
+    #about-us::after,
+    #services::after,
+    #clients::after {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        rgba(
+          0,
+          0,
+          0,
+          0.68
+        );
+
+      z-index: -1;
+
+      pointer-events: none;
+
+    }
+
+
+    /* =====================================================
+       FIRESTORE BACKGROUNDS
+    ===================================================== */
+
+    #portfolio::before {
+
+      background-image:
+        var(
+          --section-bg,
+          none
+        );
+
+    }
+
+
+    #about-us::before {
+
+      background-image:
+        var(
+          --section-bg,
+          none
+        );
+
+    }
+
+
+    #services::before {
+
+      background-image:
+        var(
+          --section-bg,
+          none
+        );
+
+    }
+
+
+    #clients::before {
+
+      background-image:
+        var(
+          --section-bg,
+          none
+        );
+
+    }
+
+
+    /* =====================================================
+       ANIMATED TITLES & BUTTONS
+    ===================================================== */
+
+    .section-title {
+
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      transform:
+        translate(
+          -50%,
+          -50%
+        );
+
+      width: 90%;
+
+      color: #fff;
+
+      font-size: 4rem;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      line-height: 1.1;
+
+      z-index: 5;
+
+      pointer-events: none;
+
+      transition:
+
+        transform 0.7s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        ),
+
+        opacity 0.5s ease-out,
+
+        font-size 0.7s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        );
+
+      will-change:
+        transform,
+        opacity;
+
+    }
+
+
+    /* =====================================================
+       OUT OF VIEW STATE
+    ===================================================== */
+
+    section.scrolled
+    .section-title {
+
+      transform:
+        translate(
+          -42vw,
+          -40vh
+        )
+        scale(0.5);
+
+      opacity: 0.3;
+
+    }
+
+
+    /* =====================================================
+       ACTIVE CENTERED TITLE
+    ===================================================== */
+
+    section.in-view
+    .section-title {
+
+      transform:
+        translate(
+          -50%,
+          -60%
+        );
+
+      opacity: 1;
+
+    }
+
+
+    /* =====================================================
+       SECTION BUTTON
+       Used by Portfolio, Services, About, Collaborations
+       AND Contact.
+    ===================================================== */
+
+    .section-btn {
+
+      position: relative;
+
+      z-index: 7;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin-top: 140px;
+
+      padding:
+        12px 28px;
+
+      min-height: 46px;
+
+      border: none;
+
+      border-radius: 40px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #1e1e1e,
+          #333
+        );
+
+      color: #fff;
+
+      font-family:
+        "Poppins",
+        system-ui,
+        -apple-system,
+        sans-serif;
+
+      font-size: 18px;
+
+      font-weight: 600;
+
+      text-decoration: none;
+
+      letter-spacing: 1px;
+
+      line-height: 1.3;
+
+      box-shadow:
+        0 8px 25px
+        rgba(
+          0,
+          0,
+          0,
+          0.25
+        );
+
+      opacity: 0;
+
+      transform:
+        translateY(20px);
+
+      cursor: pointer;
+
+      appearance: none;
+      -webkit-appearance: none;
+
+      user-select: none;
+      -webkit-user-select: none;
+
+      -webkit-tap-highlight-color:
+        transparent;
+
+      outline: none;
+
+      transition:
+
+        opacity 0.5s
+        ease 0.2s,
+
+        transform 0.5s
+        ease 0.2s,
+
+        background 0.3s ease,
+
+        box-shadow 0.3s ease,
+
+        color 0.3s ease;
+
+    }
+
+
+    section.in-view
+    .section-btn {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+
+    }
+
+
+    .section-btn:hover {
+
+      background:
+        linear-gradient(
+          135deg,
+          #333,
+          #1e1e1e
+        );
+
+      color: #fff;
+
+      transform:
+        translateY(-3px)
+        !important;
+
+      box-shadow:
+        0 12px 30px
+        rgba(
+          0,
+          0,
+          0,
+          0.35
+        );
+
+    }
+
+
+    .section-btn:focus,
+    .section-btn:active {
+
+      color: #fff;
+
+      outline: none;
+
+    }
+
+
+
+    /* =====================================================
+       CONTACT SECTION — DESKTOP
+    ===================================================== */
+
+    #contact {
+      position: relative;
+      min-height: 100vh;
+      padding: 100px 7vw;
+      display: grid;
+      grid-template-columns: minmax(300px, 0.8fr) minmax(500px, 1.2fr);
+      align-items: center;
+      gap: 7vw;
+      text-align: left;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+
+    .contact-heading {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 500px;
+      padding-left: 2vw;
+    }
+
+    #contact .section-title {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      width: auto !important;
+      margin: 0 !important;
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: none;
+      z-index: 5;
+      text-align: left;
+      color: #fff;
+      font-size: clamp(4rem, 6vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* =====================================================
+       CONTACT FORM
+    ===================================================== */
+
+    .contact-form-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 620px;
+      justify-self: center;
+      border: 1px solid #222;
+      background: rgba(13, 13, 13, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border:2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      border-radius: 28px;
+      padding: 38px;
+      color: #111;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .contact-form-header {
+      margin-bottom: 25px;
+    }
+
+    .contact-form-header h3 {
+      margin: 0;
+      font-family:'Playfair Display',serif;
+      color: #FFCC00;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    #contactForm {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group:last-of-type {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      color: #FFCC00;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group label span {
+      color: #b38b00;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1.5px solid #a8a8a8;
+      border-radius: 10px;
+      background: #eeeeee;
+      color: #151515;
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      padding: 11px 13px;
+      outline: none;
+      transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #777;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-group textarea {
+      min-height: 105px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #c49a00;
+      background: #f5f5f5;
+      box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.18);
+    }
+
+    .contact-submit {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-top: 3px;
+      padding: 13px 24px;
+      border: none;
+      border-radius: 40px;
+      background: linear-gradient(135deg, #1e1e1e, #333);
+      color: #fff;
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .contact-submit:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #333, #1e1e1e);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .contact-submit:active {
+      transform: translateY(0);
+    }
+
+    .contact-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .submit-arrow {
+      color: #ffcc00;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .form-success,
+    .form-error {
+      grid-column: 1 / -1;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .form-success { color: #267326; }
+    .form-error { color: #b3261e; }
+
+    .contact-success-screen {
+      display: none;
+      text-align: center;
+      padding: 35px 15px 20px;
+    }
+
+    .contact-success-screen.visible {
+      display: block;
+    }
+
+    .contact-success-screen .success-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #ffcc00;
+      color: #111;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .contact-success-screen h3 {
+      margin-bottom: 12px;
+      color: #111;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .contact-success-screen p {
+      margin: 5px 0;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .send-another {
+      margin-top: 25px;
+      padding: 11px 20px;
+      border: 1.5px solid #222;
+      border-radius: 30px;
+      background: transparent;
+      color: #222;
+      font-family: "Poppins", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .send-another:hover {
+      background: #222;
+      color: #ffcc00;
+    }
+
+    /* =====================================================
+       DYNAMIC CONTENT
+    ===================================================== */
+
+    .dynamic-content {
+
+      position: relative;
+
+      z-index: 6;
+
+      max-width: 750px;
+
+      margin-top: 100px;
+
+      padding: 20px;
+
+    }
+
+
+    .dynamic-content:empty {
+
+      display: none;
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+
+      position: relative;
+
+      z-index: 10;
+
+      width: 100%;
+
+      background:
+        #080808;
+
+      border-top:
+        1px solid #242424;
+
+      padding:
+        45px 20px;
+
+      text-align: center;
+
+      color: #aaa;
+
+    }
+
+
+    .footer-company {
+
+      color: #ffcc00;
+
+      font-family:
+        "Poppins",
+        system-ui,
+        sans-serif;
+
+      font-size: 22px;
+
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .footer-contact {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 25px;
+
+      flex-wrap: wrap;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .footer-contact a {
+
+      color: #ccc;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+      transition:
+        color 0.3s ease;
+
+    }
+
+
+    .footer-contact a:hover {
+
+      color: #ffcc00;
+
+    }
+
+
+    .footer-copyright {
+
+      color: #666;
+
+      font-size: 13px;
+
+      letter-spacing: 0.5px;
+
+    }
+
+
+    /* =====================================================
+       TABLET
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+      nav {
+
+        padding:
+          12px 15px;
+
+      }
+
+
+      .nav-logo {
+
+        left: 15px;
+
+      }
+
+
+      .nav-logo img {
+
+        width: 48px;
+        height: 48px;
+
+      }
+
+
+      nav ul {
+
+        gap:
+          15px 20px;
+
+      }
+
+
+      nav ul li a {
+
+        font-size: 14px;
+
+      }
+
+
+      .section-title {
+
+        font-size: 3.2rem;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 768px) {
+
+      /* -----------------------------------------------
+         NAVBAR
+      ----------------------------------------------- */
+
+      nav {
+
+        height: 68px;
+
+        padding:
+          8px 15px;
+
+        justify-content:
+          center;
+
+      }
+
+
+      .nav-logo {
+
+        left: 15px;
+
+      }
+
+
+      .nav-logo img {
+
+        width: 44px;
+
+        height: 44px;
+
+      }
+
+
+      nav ul {
+
+        position: absolute;
+
+        top: 68px;
+
+        left: 0;
+
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: flex-start;
+
+        gap: 0;
+
+        padding:
+          10px 20px 18px;
+
+        background:
+          rgba(
+            0,
+            0,
+            0,
+            0.94
+          );
+
+        backdrop-filter:
+          blur(15px);
+
+        -webkit-backdrop-filter:
+          blur(15px);
+
+        border-top:
+          1px solid
+          rgba(
+            255,
+            255,
+            255,
+            0.08
+          );
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transform:
+          translateY(-15px);
+
+        pointer-events: none;
+
+        transition:
+
+          opacity 0.3s ease,
+
+          transform 0.3s ease,
+
+          visibility 0.3s ease;
+
+      }
+
+
+      nav.menu-open ul {
+
+        opacity: 1;
+
+        visibility: visible;
+
+        transform:
+          translateY(0);
+
+        pointer-events: auto;
+
+      }
+
+
+      nav ul li {
+
+        width: 100%;
+
+        text-align: center;
+
+      }
+
+
+      nav ul li a {
+
+        width: 100%;
+
+        padding:
+          14px 10px;
+
+        font-size: 15px;
+
+        letter-spacing:
+          1.2px;
+
+      }
+
+
+      nav ul li a:hover {
+
+        transform: none;
+
+      }
+
+
+      /* IMPORTANT:
+         Hamburger is visible on mobile */
+
+      .mobile-menu-btn {
+
+        display: flex;
+
+      }
+
+
+      /* -----------------------------------------------
+         SECTIONS
+      ----------------------------------------------- */
+
+      section {
+
+        min-height: 100svh;
+
+        padding:
+          85px 18px 75px;
+
+        scroll-margin-top:
+          68px;
+
+        transform:
+          translate3d(
+            0,
+            25px,
+            0
+          )
+          scale(0.985);
+
+        transition:
+
+          opacity 0.65s
+          cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+          ),
+
+          transform 0.65s
+          cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+          );
+
+      }
+
+
+      /* -----------------------------------------------
+         SECTION TITLE
+      ----------------------------------------------- */
+
+      .section-title {
+
+        width:
+          calc(100% - 20px);
+
+        max-width:
+          100%;
+
+        font-size:
+          clamp(
+            2.1rem,
+            9vw,
+            3rem
+          );
+
+        line-height:
+          1.05;
+
+        letter-spacing:
+          0.5px;
+
+        word-break:
+          normal;
+
+        overflow-wrap:
+          break-word;
+
+      }
+
+
+      section.in-view
+      .section-title {
+
+        transform:
+          translate(
+            -50%,
+            -52%
+          );
+
+      }
+
+
+      section.scrolled
+      .section-title {
+
+        transform:
+          translate(
+            -38vw,
+            -40vh
+          )
+          scale(0.45);
+
+        opacity:
+          0.25;
+
+      }
+
+
+      /* -----------------------------------------------
+         COLLABORATIONS TITLE
+      ----------------------------------------------- */
+
+      #clients .section-title {
+
+        font-size:
+          clamp(
+            1.9rem,
+            8vw,
+            2.6rem
+          );
+
+        white-space:
+          nowrap;
+
+      }
+
+
+      /* -----------------------------------------------
+         SECTION BUTTON
+      ----------------------------------------------- */
+
+      .section-btn {
+
+        margin-top:
+          110px;
+
+        padding:
+          12px 21px;
+
+        min-height:
+          46px;
+
+        display:
+          inline-flex;
+
+        align-items:
+          center;
+
+        justify-content:
+          center;
+
+        font-size:
+          14px;
+
+        letter-spacing:
+          0.6px;
+
+        line-height:
+          1.3;
+
+        max-width:
+          calc(100vw - 40px);
+
+        text-align:
+          center;
+
+      }
+
+
+      .section-btn:hover {
+
+        transform:
+          translateY(0)
+          !important;
+
+      }
+
+
+           /* -----------------------------------------------
+         CONTACT — MOBILE
+      ----------------------------------------------- */
+
+      #contact {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        padding: 100px 30px;
+      }
+
+      .contact-heading {
+        min-height: auto;
+        justify-content: center;
+        padding-left: 0;
+      }
+
+      #contact .section-title {
+        text-align: center;
+        font-size: clamp(3.5rem, 11vw, 5rem);
+      }
+
+      .contact-form-wrapper {
+        max-width: 700px;
+        padding: 32px;
+      }
+
+      .contact-form-header h3 {
+        font-size: 24px;
+      }
+
+      #contactForm {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 18px;
+      }
+
+      /* -----------------------------------------------
+         FOOTER
+      ----------------------------------------------- */
+
+      footer {
+
+        padding:
+          35px 18px;
+
+      }
+
+
+      .footer-company {
+
+        font-size:
+          18px;
+
+        line-height:
+          1.4;
+
+        margin-bottom:
+          18px;
+
+      }
+
+
+      .footer-contact {
+
+        flex-direction:
+          column;
+
+        gap:
+          11px;
+
+        margin-bottom:
+          20px;
+
+      }
+
+
+      .footer-contact a {
+
+        font-size:
+          14px;
+
+        padding:
+          5px 0;
+
+      }
+
+
+      .footer-copyright {
+
+        font-size:
+          11px;
+
+        line-height:
+          1.6;
+
+        max-width:
+          320px;
+
+        margin:
+          0 auto;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ===================================================== */
+
+    @media (max-width: 480px) {
+
+      nav {
+
+        height:
+          62px;
+
+      }
+
+
+      .nav-logo {
+
+        left:
+          12px;
+
+      }
+
+
+      .nav-logo img {
+
+        width:
+          40px;
+
+        height:
+          40px;
+
+      }
+
+
+      .mobile-menu-btn {
+
+        right:
+          12px;
+
+        width:
+          42px;
+
+        height:
+          42px;
+
+      }
+
+
+      nav ul {
+
+        top:
+          62px;
+
+      }
+
+
+      nav ul li a {
+
+        padding:
+          13px 10px;
+
+        font-size:
+          14px;
+
+      }
+
+
+      section {
+
+        padding:
+          75px 15px 65px;
+
+      }
+
+
+      .section-title {
+
+        font-size:
+          clamp(
+            1.9rem,
+            10vw,
+            2.5rem
+          );
+
+      }
+
+
+      #clients .section-title {
+
+        font-size:
+          clamp(
+            1.65rem,
+            8.5vw,
+            2.2rem
+          );
+
+      }
+
+
+      .section-btn {
+
+        margin-top:
+          100px;
+
+        padding:
+          11px 18px;
+
+        font-size:
+          13px;
+
+      }
+
+
+      .footer-company {
+
+        font-size:
+          17px;
+
+      }
+
+
+      .footer-copyright {
+
+        font-size:
+          10.5px;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       VERY SMALL MOBILE
+    ===================================================== */
+
+    @media (max-width: 360px) {
+
+      .section-title {
+
+        font-size:
+          1.75rem;
+
+      }
+
+
+      #clients .section-title {
+
+        font-size:
+          1.5rem;
+
+      }
+
+
+      .section-btn {
+
+        font-size:
+          12px;
+
+        padding:
+          10px 15px;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       REDUCED MOTION
+    ===================================================== */
+
+    @media (
+      prefers-reduced-motion: reduce
+    ) {
+
+      html {
+
+        scroll-behavior:
+          auto;
+
+      }
+
+
+      section,
+      section::before,
+      .section-title,
+      video.bg-video,
+      .section-btn,
+      nav ul li a,
+      nav ul {
+
+        transition:
+          none !important;
+
+        animation:
+          none !important;
+
+        transform:
+          none !important;
+
+        opacity:
+          1 !important;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==================================================
+       INTRO VIDEO
+  ================================================== -->
+
+  <div id="introVideo">
+
+    <video
+      id="introVideoPlayer"
+      autoplay
+      muted
+      playsinline
+      preload="auto"
+    >
+
+      <source
+        id="introVideoSource"
+        src="introlaptop.mp4"
+        type="video/mp4"
+      />
+
+    </video>
+
+  </div>
+
+
+  <!-- ==================================================
+       BACKGROUND VIDEO
+  ================================================== -->
+
+  <video
+    id="backgroundVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    class="bg-video"
+    aria-hidden="true"
+  >
+
+    <source
+      id="backgroundVideoSource"
+      src="assets/videos/background.mp4"
+      type="video/mp4"
+    />
+
+  </video>
+
+
+  <!-- ==================================================
+       NAVBAR
+  ================================================== -->
+
+  <nav aria-label="Main Navigation">
+
+
+    <!-- COMPANY LOGO -->
+
+    <a
+      href="#home"
+      class="nav-logo"
+      aria-label="The Light House Studios"
+    >
+
+      <img
+        src="logo.png"
+        alt="The Light House Studios"
+      />
+
+    </a>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button
+      type="button"
+      class="mobile-menu-btn"
+      id="mobileMenuBtn"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+
+    <ul>
+
+
+      <!-- HOME -->
+
+      <li>
+
+        <a href="#home">
+          Home
+        </a>
+
+      </li>
+
+
+      <!-- PORTFOLIO -->
+
+      <li>
+
+        <a href="#portfolio">
+          Portfolio
+        </a>
+
+      </li>
+
+
+      <!-- SERVICES -->
+
+      <li>
+
+        <a href="#services">
+          Services
+        </a>
+
+      </li>
+
+
+      <!-- ABOUT US -->
+
+      <li>
+
+        <a href="#about-us">
+          About Us
+        </a>
+
+      </li>
+
+
+      <!-- OUR COLLABORATIONS -->
+
+      <li>
+
+        <a href="#clients">
+          Collaborations
+        </a>
+
+      </li>
+
+
+      <!-- CONTACT -->
+
+      <li>
+
+        <a href="#contact">
+          Contact Us
+        </a>
+
+      </li>
+
+
+    </ul>
+
+  </nav>
+
+
+  <!-- ==================================================
+       HOME
+  ================================================== -->
+
+  <section id="home">
+
+    <h1 class="section-title">
+
+      Welcome
+
+    </h1>
+
+  </section>
+
+
+  <!-- ==================================================
+       PORTFOLIO
+  ================================================== -->
+
+  <section id="portfolio">
+
+    <h2 class="section-title">
+
+      Portfolio
+
+    </h2>
+
+
+    <a
+      href="portfolio.html"
+      class="section-btn"
+    >
+
+      View Full Portfolio
+      &rarr;
+
+    </a>
+
+  </section>
+
+
+  <!-- ==================================================
+       SERVICES
+  ================================================== -->
+
+  <section id="services">
+
+    <h2 class="section-title">
+
+      Services
+
+    </h2>
+
+
+    <a
+      href="services.html"
+      class="section-btn"
+    >
+
+      Explore Our Services
+      &rarr;
+
+    </a>
+
+  </section>
+
+
+  <!-- ==================================================
+       ABOUT US
+  ================================================== -->
+
+  <section id="about-us">
+
+    <h2 class="section-title">
+
+      About Us
+
+    </h2>
+
+
+    <a
+      href="about-us.html"
+      class="section-btn"
+    >
+
+      Know More About Us
+      &rarr;
+
+    </a>
+
+  </section>
+
+
+  <!-- ==================================================
+       OUR COLLABORATIONS
+  ================================================== -->
+
+  <section id="clients">
+
+    <h2 class="section-title">
+
+      Collaborations
+
+    </h2>
+
+
+    <a
+      href="our-clients.html"
+      class="section-btn"
+    >
+
+      View Our Collaborations
+      &rarr;
+
+    </a>
+
+  </section>
+
+ <!-- ==================================================
+     CONTACT
+================================================== -->
+
+<section id="contact">
+
+  <!-- LEFT SIDE -->
+  <div class="contact-heading">
+
+    <h2 class="section-title">
+      Contact<br>
+      Us
+    </h2>
+
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="contact-form-wrapper">
+
+    <div class="contact-form-header">
+      <h3>GET IN TOUCH</h3>
+    </div>
+
+
+    <!-- FORM -->
+    <form
+      id="contactForm"
+      action="https://formspree.io/f/mljeeqdn"
+      method="POST"
+    >
+
+      <!-- NAME -->
+      <div class="form-group">
+
+        <label for="name">
+          Name <span>*</span>
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name"
+          required
+          autocomplete="name"
+        >
+
+      </div>
+
+
+      <!-- EMAIL -->
+      <div class="form-group">
+
+        <label for="email">
+          Email <span>*</span>
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your email"
+          required
+          autocomplete="email"
+        >
+
+      </div>
+
+
+      <!-- PHONE -->
+      <div class="form-group">
+
+        <label for="phone">
+          Phone / WhatsApp <span>*</span>
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="+91 XXXXX XXXXX"
+          required
+          autocomplete="tel"
+        >
+
+      </div>
+
+
+      <!-- SERVICE -->
+      <div class="form-group">
+
+        <label for="service">
+          Service <span>*</span>
+        </label>
+
+        <select
+          id="service"
+          name="service"
+          required
+        >
+
+          <option value="" disabled selected>
+            Select a service
+          </option>
+
+          <option value="Photography">
+            Photography
+          </option>
+
+          <option value="video Production">
+            Video Production
+          </option>
+
+          <option value="Marketing & Branding">
+            Marketing & Branding
+          </option>
+
+          <option value="content Creation">
+             Content Creation
+          </option>
+        </select>
+
+      </div>
+
+
+      <!-- BUDGET -->
+      <div class="form-group">
+
+        <label for="Budget">
+          Estimated Budget <span>*</span>
+        </label>
+
+        <input
+          type="text"
+          id="budget"
+          name="budget"
+          placeholder="Estimated budget"
+          required
+        >
+
+      </div>
+
+      <!-- MESSAGE -->
+      <div class="form-group">
+
+        <label for="message">
+          Tell us about your project <span>*</span>
+        </label>
+
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Tell us about your project..."
+          rows="4"
+          required
+        ></textarea>
+
+      </div>
+
+
+      <!-- FORM STATUS -->
+      <div
+        id="formSuccess"
+        class="form-success"
+        data-fs-success
+      ></div>
+
+
+      <div
+        id="formError"
+        class="form-error"
+        data-fs-error
+      ></div>
+
+
+      <!-- SUBMIT -->
+      <button
+        type="submit"
+        class="contact-submit"
+        data-fs-submit-btn
+      >
+
+        <span>
+          SEND MESSAGE
+        </span>
+
+        <span class="submit-arrow">
+          →
+        </span>
+
+      </button>
+
+    </form>
+
+
+    <!-- SUCCESS MESSAGE -->
+    <div
+      id="contactSuccess"
+      class="contact-success-screen"
+    >
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h3>
+        MESSAGE SENT
+      </h3>
+
+      <p>
+        Thank you for contacting
+        The Light House Studios.
+      </p>
+
+      <p>
+        We've received your enquiry and
+        will get back to you shortly.
+      </p>
+
+      <button
+        type="button"
+        id="sendAnotherMessage"
+        class="send-another"
+      >
+        SEND ANOTHER MESSAGE →
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+  <!-- ==================================================
+       FOOTER
+  ================================================== -->
+
+  <footer>
+
+
+    <div class="footer-company">
+
+      The Light House Studios
+
+    </div>
+
+
+    <div class="footer-contact">
+
+
+      <!-- REPLACE THESE WITH YOUR ACTUAL DETAILS -->
+
+      <a
+        href="mailto:your-email@example.com"
+      >
+
+        thelighthousestudios.in@gmail.com
+
+      </a>
+
+
+      <a
+        href="tel:+910000000000"
+      >
+
+        +91 00000 00000
+
+      </a>
+
+
+    </div>
+
+
+    <div class="footer-copyright">
+
+      © 2026 The Light House Studios ·
+      All rights reserved
+
+    </div>
+
+
+  </footer>
+
+
+  <!-- ==================================================
+       ANIMATION CONTROLLER
+  ================================================== -->
+
+  <script>
+
+    const sections =
+      Array.from(
+        document.querySelectorAll(
+          "section"
+        )
+      );
+
+
+    const video =
+      document.querySelector(
+        ".bg-video"
+      );
+
+
+    const home =
+      document.querySelector(
+        "#home"
+      );
+
+
+    const mobileMenuBtn =
+      document.getElementById(
+        "mobileMenuBtn"
+      );
+
+
+    const nav =
+      document.querySelector(
+        "nav"
+      );
+
+
+    let activeSection =
+      null;
+
+
+    let ticking =
+      false;
+
+
+    /* =====================================================
+       SECTION ANIMATION
+    ===================================================== */
+
+    function updateSections() {
+
+      ticking =
+        false;
+
+
+      if (!sections.length) {
+
+        return;
+
+      }
+
+
+      const viewportCenter =
+        window.innerHeight * 0.5;
+
+
+      let closestSection =
+        null;
+
+
+      let closestDistance =
+        Infinity;
+
+
+      sections.forEach(
+        section => {
+
+          const rect =
+            section.getBoundingClientRect();
+
+
+          const sectionCenter =
+            rect.top +
+            (
+              rect.height / 2
+            );
+
+
+          const distance =
+            Math.abs(
+              sectionCenter -
+              viewportCenter
+            );
+
+
+          if (
+            distance <
+            closestDistance
+          ) {
+
+            closestDistance =
+              distance;
+
+            closestSection =
+              section;
+
+          }
+
+        }
+      );
+
+
+      if (
+        closestSection &&
+        closestSection !==
+          activeSection
+      ) {
+
+        activeSection =
+          closestSection;
+
+
+        sections.forEach(
+          section => {
+
+            if (
+              section ===
+              activeSection
+            ) {
+
+              section.classList.add(
+                "in-view"
+              );
+
+
+              section.classList.remove(
+                "scrolled"
+              );
+
+            }
+
+            else {
+
+              section.classList.remove(
+                "in-view"
+              );
+
+
+              section.classList.add(
+                "scrolled"
+              );
+
+            }
+
+          }
+        );
+
+      }
+
+
+      /* ==================================================
+         BACKGROUND VIDEO
+      ================================================== */
+
+      if (
+        video &&
+        home
+      ) {
+
+        const homeRect =
+          home.getBoundingClientRect();
+
+
+        const showVideo =
+          homeRect.bottom >
+          100;
+
+
+        video.classList.toggle(
+          "hidden",
+          !showVideo
+        );
+
+      }
+
+    }
+
+
+    function requestUpdate() {
+
+      if (!ticking) {
+
+        window.requestAnimationFrame(
+          updateSections
+        );
+
+        ticking =
+          true;
+
+      }
+
+    }
+
+
+    window.addEventListener(
+      "scroll",
+      requestUpdate,
+      {
+        passive: true
+      }
+    );
+
+
+    window.addEventListener(
+      "resize",
+      requestUpdate
+    );
+
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        updateSections();
+
+      }
+    );
+
+
+    window.addEventListener(
+      "load",
+      updateSections
+    );
+
+
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    if (mobileMenuBtn && nav) {
+
+      mobileMenuBtn.addEventListener(
+        "click",
+        () => {
+
+          const isOpen =
+            nav.classList.toggle(
+              "menu-open"
+            );
+
+
+          mobileMenuBtn.classList.toggle(
+            "active",
+            isOpen
+          );
+
+
+          mobileMenuBtn.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+          );
+
+
+          mobileMenuBtn.setAttribute(
+            "aria-label",
+            isOpen
+              ? "Close navigation menu"
+              : "Open navigation menu"
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    document
+      .querySelectorAll(
+        "nav ul li a"
+      )
+      .forEach(
+        link => {
+
+          link.addEventListener(
+            "click",
+            event => {
+
+              event.preventDefault();
+
+
+              const targetId =
+                link.getAttribute(
+                  "href"
+                );
+
+
+              const targetSection =
+                document.querySelector(
+                  targetId
+                );
+
+
+              /* Close mobile menu */
+
+              if (nav) {
+
+                nav.classList.remove(
+                  "menu-open"
+                );
+
+              }
+
+
+              if (mobileMenuBtn) {
+
+                mobileMenuBtn.classList.remove(
+                  "active"
+                );
+
+
+                mobileMenuBtn.setAttribute(
+                  "aria-expanded",
+                  "false"
+                );
+
+
+                mobileMenuBtn.setAttribute(
+                  "aria-label",
+                  "Open navigation menu"
+                );
+
+              }
+
+
+              if (
+                targetSection
+              ) {
+
+                targetSection.scrollIntoView({
+
+                  behavior:
+                    "smooth",
+
+                  block:
+                    "start"
+
+                });
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       CLOSE MOBILE MENU WHEN CLICKING OUTSIDE
+    ===================================================== */
+
+    document.addEventListener(
+      "click",
+      event => {
+
+        if (
+          !nav ||
+          !mobileMenuBtn
+        ) {
+
+          return;
+
+        }
+
+
+        if (
+          nav.classList.contains(
+            "menu-open"
+          ) &&
+          !nav.contains(event.target)
+        ) {
+
+          nav.classList.remove(
+            "menu-open"
+          );
+
+
+          mobileMenuBtn.classList.remove(
+            "active"
+          );
+
+
+          mobileMenuBtn.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+
+          mobileMenuBtn.setAttribute(
+            "aria-label",
+            "Open navigation menu"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       CLOSE MENU ON ESCAPE
+    ===================================================== */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          nav &&
+          nav.classList.contains(
+            "menu-open"
+          )
+        ) {
+
+          nav.classList.remove(
+            "menu-open"
+          );
+
+
+          if (mobileMenuBtn) {
+
+            mobileMenuBtn.classList.remove(
+              "active"
+            );
+
+
+            mobileMenuBtn.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+
+            mobileMenuBtn.setAttribute(
+              "aria-label",
+              "Open navigation menu"
+            );
+
+          }
+
+        }
+
+      }
+    );
+
+  </script>
+
+
+  <!-- ==================================================
+       FIREBASE / CMS INTEGRATION
+  ================================================== -->
+
+  <script type="module">
+
+    import {
+      getSiteSettings
+    } from "./dynamic-content.js";
+
+
+    /*
+      ====================================================
+      HOMEPAGE CMS RULE
+
+      This page reads ONLY:
+
+          site/settings
+
+      It does NOT read:
+
+          portfolio
+          blogs
+          filmmaking
+          startups
+
+      Those collections belong to their respective
+      dedicated pages.
+    ====================================================
+    */
+
+
+    async function loadWebsiteContent() {
+
+      try {
+
+        const settings =
+          await getSiteSettings();
+
+
+        /* ================================================
+           BACKGROUND VIDEO
+
+           DESKTOP / LAPTOP:
+             settings.backgroundVideo
+
+           MOBILE:
+             settings.mobileBackgroundVideo
+
+           If the mobile field is empty, the desktop
+           video is used as a fallback.
+        ================================================= */
+
+        const backgroundVideo =
+          document.getElementById(
+            "backgroundVideo"
+          );
+
+
+        const backgroundVideoSource =
+          document.getElementById(
+            "backgroundVideoSource"
+          );
+
+
+        function getBackgroundVideoUrl() {
+
+          const isMobile =
+            window.matchMedia(
+              "(max-width: 768px)"
+            ).matches;
+
+
+          const desktopVideo =
+            typeof settings.backgroundVideo === "string"
+              ? settings.backgroundVideo.trim()
+              : "";
+
+
+          const mobileVideo =
+            typeof settings.mobileBackgroundVideo === "string"
+              ? settings.mobileBackgroundVideo.trim()
+              : "";
+
+
+          /*
+             On mobile:
+             use mobile video if it exists.
+
+             Otherwise:
+             fall back to desktop video.
+          */
+
+          if (
+            isMobile &&
+            mobileVideo
+          ) {
+
+            return mobileVideo;
+
+          }
+
+
+          return desktopVideo;
+
+        }
+
+
+        function loadBackgroundVideo() {
+
+          if (
+            !backgroundVideo ||
+            !backgroundVideoSource
+          ) {
+
+            console.warn(
+              "Background video element not found."
+            );
+
+            return;
+
+          }
+
+
+          const selectedVideo =
+            getBackgroundVideoUrl();
+
+
+          if (!selectedVideo) {
+
+            console.warn(
+              "No background video URL found in site/settings."
+            );
+
+            return;
+
+          }
+
+
+          const currentVideo =
+            backgroundVideoSource.getAttribute(
+              "src"
+            );
+
+
+          /*
+             Do not reload the video if the correct
+             source is already loaded.
+          */
+
+          if (
+            currentVideo ===
+            selectedVideo
+          ) {
+
+            backgroundVideo
+              .play()
+              .catch(
+                () => {}
+              );
+
+            return;
+
+          }
+
+
+          /*
+             Stop the old video before changing source.
+          */
+
+          backgroundVideo.pause();
+
+
+          /*
+             Set the new Firestore URL.
+          */
+
+          backgroundVideoSource.setAttribute(
+            "src",
+            selectedVideo
+          );
+
+
+          /*
+             Reload the <video> element.
+          */
+
+          backgroundVideo.load();
+
+
+          /*
+             Start playback after the new source
+             has loaded enough data.
+          */
+
+          const playVideo =
+            () => {
+
+              backgroundVideo
+                .play()
+                .catch(
+                  () => {
+
+                    console.warn(
+                      "Background video autoplay was blocked by the browser."
+                    );
+
+                  }
+                );
+
+            };
+
+
+          backgroundVideo.addEventListener(
+            "loadeddata",
+            playVideo,
+            {
+              once: true
+            }
+          );
+
+
+          /*
+             Some browsers can already have enough
+             data available immediately.
+          */
+
+          if (
+            backgroundVideo.readyState >= 2
+          ) {
+
+            playVideo();
+
+          }
+
+        }
+
+
+        /*
+           Load the correct video immediately.
+        */
+
+        loadBackgroundVideo();
+
+
+        /*
+           If the user rotates a phone or resizes
+           the browser, switch between the mobile
+           and desktop videos automatically.
+        */
+
+        const backgroundVideoMediaQuery =
+          window.matchMedia(
+            "(max-width: 768px)"
+          );
+
+
+        if (
+          backgroundVideoMediaQuery.addEventListener
+        ) {
+
+          backgroundVideoMediaQuery.addEventListener(
+            "change",
+            loadBackgroundVideo
+          );
+
+        }
+
+        else {
+
+          backgroundVideoMediaQuery.addListener(
+            loadBackgroundVideo
+          );
+
+        }
+
+
+        /* ================================================
+           SITE NAME
+        ================================================= */
+
+        if (
+          settings &&
+          settings.siteName
+        ) {
+
+          document.title =
+            settings.siteName;
+
+        }
+
+
+        /* ================================================
+           HERO TITLE
+        ================================================= */
+
+        if (
+          settings &&
+          settings.heroTitle
+        ) {
+
+          const hero =
+            document.querySelector(
+              "#home .section-title"
+            );
+
+
+          if (hero) {
+
+            hero.textContent =
+              settings.heroTitle;
+
+          }
+
+        }
+
+
+        /* ================================================
+           SECTION BACKGROUNDS
+        ================================================= */
+
+        const portfolioSection =
+          document.querySelector(
+            "#portfolio"
+          );
+
+
+        const aboutSection =
+          document.querySelector(
+            "#about-us"
+          );
+
+
+        const servicesSection =
+          document.querySelector(
+            "#services"
+          );
+
+
+        const clientsSection =
+          document.querySelector(
+            "#clients"
+          );
+
+
+        /* =================================================
+           PORTFOLIO
+        ================================================= */
+
+        if (
+          portfolioSection &&
+          settings.portfolioBg
+        ) {
+
+          portfolioSection.style.setProperty(
+            "--section-bg",
+            `url("${settings.portfolioBg}")`
+          );
+
+        }
+
+
+        /* =================================================
+           ABOUT US
+
+           Admin still calls this field
+           "blogsBg".
+        ================================================= */
+
+        if (
+          aboutSection &&
+          settings.blogsBg
+        ) {
+
+          aboutSection.style.setProperty(
+            "--section-bg",
+            `url("${settings.blogsBg}")`
+          );
+
+        }
+
+
+        /* =================================================
+           SERVICES
+
+           Admin still calls this field
+           "filmBg".
+        ================================================= */
+
+        if (
+          servicesSection &&
+          settings.filmBg
+        ) {
+
+          servicesSection.style.setProperty(
+            "--section-bg",
+            `url("${settings.filmBg}")`
+          );
+
+        }
+
+
+        /* =================================================
+           OUR COLLABORATIONS
+
+           Admin still calls this field
+           "startupBg".
+        ================================================= */
+
+        if (
+          clientsSection &&
+          settings.startupBg
+        ) {
+
+          clientsSection.style.setProperty(
+            "--section-bg",
+            `url("${settings.startupBg}")`
+          );
+
+        }
+
+
+        console.log(
+          "Homepage CMS settings loaded successfully."
+        );
+
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Website CMS loading error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* ====================================================
+       START CMS
+    ===================================================== */
+
+    if (
+      document.readyState ===
+      "loading"
+    ) {
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        loadWebsiteContent
+      );
+
+    }
+
+    else {
+
+      loadWebsiteContent();
+
+    }
+
+  </script>
+
+
+  <!-- ==================================================
+       INTRO VIDEO CONTROLLER
+  ================================================== -->
+
+  <script>
+
+    /* =====================================================
+       INTRO VIDEO
+       SELECT MOBILE / DESKTOP VIDEO
+    ===================================================== */
+
+    const introVideo =
+      document.getElementById(
+        "introVideo"
+      );
+
+
+    const introVideoPlayer =
+      document.getElementById(
+        "introVideoPlayer"
+      );
+
+
+    const introVideoSource =
+      document.getElementById(
+        "introVideoSource"
+      );
+
+
+    /* =====================================================
+       CHECK IF INTRO WAS ALREADY SHOWN
+    ===================================================== */
+
+    const introAlreadyShown =
+      sessionStorage.getItem(
+        "introShown"
+      );
+
+
+    /* =====================================================
+       IF ALREADY SHOWN
+    ===================================================== */
+
+    if (
+      introAlreadyShown === "true"
+    ) {
+
+      if (introVideo) {
+
+        introVideo.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       FIRST VISIT
+    ===================================================== */
+
+    else {
+
+      /*
+        Mark intro as shown immediately.
+
+        This prevents the intro from playing
+        again when the page is refreshed.
+      */
+
+      sessionStorage.setItem(
+        "introShown",
+        "true"
+      );
+
+
+      /* =================================================
+         SELECT VIDEO BASED ON SCREEN SIZE
+      ================================================= */
+
+      if (
+        introVideoPlayer &&
+        introVideoSource
+      ) {
+
+        const isMobile =
+          window.matchMedia(
+            "(max-width: 768px)"
+          ).matches;
+
+
+        if (isMobile) {
+
+          /*
+            MOBILE
+
+            Your mobile video should be 9:16
+          */
+
+          introVideoSource.src =
+            "intro-mobile.mp4";
+
+        }
+
+        else {
+
+          /*
+            LAPTOP / DESKTOP
+
+            Your desktop video
+          */
+
+          introVideoSource.src =
+            "introlaptop.mp4";
+
+        }
+
+
+        /*
+          Reload video with selected source
+        */
+
+        introVideoPlayer.load();
+
+
+        /*
+          Play selected intro
+        */
+
+        introVideoPlayer
+          .play()
+          .catch(
+            () => {
+
+              console.warn(
+                "Intro video autoplay was blocked."
+              );
+
+            }
+          );
+
+
+        /*
+          When video finishes,
+          fade it out.
+        */
+
+        introVideoPlayer.addEventListener(
+          "ended",
+          closeIntroVideo
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       CLOSE INTRO VIDEO
+    ===================================================== */
+
+    function closeIntroVideo() {
+
+      if (!introVideo)
+        return;
+
+
+      introVideo.classList.add(
+        "fade-out"
+      );
+
+
+      setTimeout(
+        () => {
+
+          introVideo.classList.add(
+            "hidden"
+          );
+
+
+          if (introVideoPlayer) {
+
+            introVideoPlayer.pause();
+
+            introVideoPlayer.currentTime =
+              0;
+
+          }
+
+        },
+        1200
+      );
+
+    }
+
+  </script>
+
+<!-- ==================================================
+     FORMSPREE AJAX
+================================================== -->
+
+<script>
+
+  window.formspree =
+    window.formspree ||
+    function () {
+
+      (
+        formspree.q =
+        formspree.q || []
+      ).push(arguments);
+
+    };
+
+
+  formspree(
+    'initForm',
+    {
+      formElement:
+        '#contactForm',
+
+      formId:
+        'mljeeqdn'
+    }
+  );
+
+</script>
+
+
+<script
+  src="https://unpkg.com/@formspree/ajax@1"
+  defer
+></script>
+
+<script>
+
+  const contactForm =
+    document.getElementById(
+      "contactForm"
+    );
+
+  const contactSuccess =
+    document.getElementById(
+      "contactSuccess"
+    );
+
+  const sendAnotherMessage =
+    document.getElementById(
+      "sendAnotherMessage"
+    );
+
+
+  /*
+     Watch for successful Formspree submission.
+  */
+
+  if (contactForm) {
+
+    contactForm.addEventListener(
+      "submit",
+      function () {
+
+        /*
+          Give Formspree a moment to process
+          the AJAX request.
+        */
+
+        setTimeout(
+          function () {
+
+            /*
+              The Formspree library adds
+              data-fs-success content when
+              submission succeeds.
+            */
+
+            const successMessage =
+              document.querySelector(
+                "[data-fs-success]"
+              );
+
+
+            if (
+              successMessage &&
+              successMessage.textContent.trim()
+            ) {
+
+              contactForm.style.display =
+                "none";
+
+              contactSuccess.classList.add(
+                "visible"
+              );
+
+            }
+
+          },
+          800
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+     Send another message.
+  */
+
+  if (sendAnotherMessage) {
+
+    sendAnotherMessage.addEventListener(
+      "click",
+      function () {
+
+        contactSuccess.classList.remove(
+          "visible"
+        );
+
+        contactForm.style.display =
+          "grid";
+
+        contactForm.reset();
+
+      }
+    );
+
+  }
+
+</script>
+
+</body>
+
+</html>

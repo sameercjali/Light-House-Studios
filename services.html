@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Services</title>
+
+  <!-- =====================================================
+       GOOGLE FONTS
+  ====================================================== -->
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Raleway:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    /* =====================================================
+       BASE
+    ===================================================== */
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: #0d0d0d;
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+
+    /* =====================================================
+       MAIN CONTAINER
+    ===================================================== */
+
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0 auto;
+
+      padding: 38px 0 45px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    /* =====================================================
+       PAGE TITLE
+    ===================================================== */
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+
+      font-size: clamp(
+        2.4rem,
+        3.5vw,
+        3.8rem
+      );
+
+      font-weight: 700;
+
+      letter-spacing: 2px;
+
+      color: #ffcc00;
+
+      text-align: center;
+
+      line-height: 1;
+
+      margin: 0;
+
+      opacity: 0;
+
+      transform: translateY(-30px);
+
+      animation:
+        titleIn
+        1s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        )
+        forwards;
+    }
+
+
+    /* =====================================================
+       TITLE UNDERLINE
+    ===================================================== */
+
+    h1::after {
+      content: "";
+
+      display: block;
+
+      width: 80px;
+
+      height: 3px;
+
+      margin: 16px auto 0;
+
+      background: #ffcc00;
+
+      border-radius: 10px;
+    }
+
+
+    /* =====================================================
+       TITLE ANIMATION
+    ===================================================== */
+
+    @keyframes titleIn {
+
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+
+    /* =====================================================
+       CAROUSEL
+    ===================================================== */
+
+    .services-carousel {
+      position: relative;
+
+      width: 100%;
+
+      margin-top: 45px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+
+    /* =====================================================
+       CAROUSEL VIEWPORT
+
+       We intentionally keep overflow visible so the
+       neighboring cards can peek into the screen.
+    ===================================================== */
+
+    .carousel-viewport {
+      position: relative;
+
+      width: 100%;
+
+      overflow: visible;
+
+      cursor: grab;
+
+      touch-action: pan-y;
+
+      user-select: none;
+
+      -webkit-user-select: none;
+    }
+
+
+    .carousel-viewport.dragging {
+      cursor: grabbing;
+    }
+
+
+    /* =====================================================
+       TRACK
+    ===================================================== */
+
+    #content {
+      display: flex;
+
+      align-items: stretch;
+
+      gap: 24px;
+
+      width: max-content;
+
+      will-change: transform;
+
+      transition:
+        transform
+        0.65s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        );
+    }
+
+
+    #content.dragging {
+      transition: none;
+    }
+
+
+    /* =====================================================
+       SERVICE CARD
+       DESKTOP
+    ===================================================== */
+
+    .content-card {
+      flex: 0 0 48vw;
+
+      width: 48vw;
+
+      max-width: 700px;
+
+      min-height: 390px;
+
+      padding: 45px 55px;
+
+      position: relative;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          #181818,
+          #111111
+        );
+
+      border: 1px solid #303030;
+
+      border-radius: 24px;
+
+      box-shadow:
+        0 25px 65px
+        rgba(
+          0,
+          0,
+          0,
+          0.5
+        );
+
+      transition:
+        transform 0.65s
+        cubic-bezier(
+          0.16,
+          1,
+          0.3,
+          1
+        ),
+        opacity 0.65s ease,
+        filter 0.65s ease,
+        box-shadow 0.65s ease;
+
+      opacity: 0.45;
+
+      filter: brightness(0.62);
+
+      transform: scale(0.88);
+    }
+
+
+    /* =====================================================
+       ACTIVE CENTER CARD
+    ===================================================== */
+
+    .content-card.active {
+      opacity: 1;
+
+      filter: brightness(1);
+
+      transform: scale(1);
+
+      box-shadow:
+        0 30px 80px
+        rgba(
+          0,
+          0,
+          0,
+          0.65
+        );
+
+      z-index: 3;
+    }
+
+
+    /* =====================================================
+       SIDE CARDS
+    ===================================================== */
+
+    .content-card.side-card {
+      transform: scale(0.88);
+
+      z-index: 1;
+    }
+
+
+    /* =====================================================
+       GOLD TOP LINE
+    ===================================================== */
+
+    .content-card::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+
+      left: 45px;
+
+      right: 45px;
+
+      height: 2px;
+
+      background: #ffcc00;
+
+      border-radius:
+        0 0 10px 10px;
+    }
+
+
+    /* =====================================================
+       CARD NUMBER
+    ===================================================== */
+
+    .card-number {
+      position: absolute;
+
+      top: 28px;
+
+      right: 35px;
+
+      color:
+        rgba(
+          255,
+          204,
+          0,
+          0.4
+        );
+
+      font-family:
+        'Playfair Display',
+        serif;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      letter-spacing: 2px;
+    }
+
+
+    /* =====================================================
+       SERVICE CONTENT
+    ===================================================== */
+
+    .content-body {
+      width: 100%;
+    }
+
+
+    /* =====================================================
+       SERVICE TITLE
+    ===================================================== */
+
+    .content-body h2 {
+      font-family:
+        'Playfair Display',
+        serif;
+
+      font-size:
+        clamp(
+          2rem,
+          3vw,
+          3.2rem
+        );
+
+      font-weight: 700;
+
+      color: #ffffff;
+
+      line-height: 1.1;
+
+      margin: 0 0 25px;
+    }
+
+
+    /* =====================================================
+       SERVICE LIST
+    ===================================================== */
+
+    .service-list {
+      list-style: none;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 11px;
+
+      width: 100%;
+    }
+
+
+    /* =====================================================
+       SERVICE ITEM
+    ===================================================== */
+
+    .service-list li {
+      position: relative;
+
+      padding-left: 20px;
+
+      color: #cccccc;
+
+      font-size: 14px;
+
+      line-height: 1.45;
+
+      font-weight: 400;
+    }
+
+
+    /* =====================================================
+       GOLD DOT
+    ===================================================== */
+
+    .service-list li::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+
+      top: 8px;
+
+      width: 6px;
+
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: #ffcc00;
+    }
+
+
+    /* =====================================================
+       EMPTY SERVICES
+    ===================================================== */
+
+    .empty-services {
+      color: #999;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       NAVIGATION ARROWS
+    ===================================================== */
+
+    .carousel-arrow {
+      position: absolute;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 46px;
+
+      height: 46px;
+
+      border: 1px solid #3a3a3a;
+
+      border-radius: 50%;
+
+      background:
+        rgba(
+          20,
+          20,
+          20,
+          0.95
+        );
+
+      color: #ffffff;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 21px;
+
+      cursor: pointer;
+
+      z-index: 20;
+
+      transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+    }
+
+
+    .carousel-arrow:hover {
+      background: #ffcc00;
+
+      color: #0d0d0d;
+
+      border-color: #ffcc00;
+    }
+
+
+    .carousel-arrow:active {
+      transform:
+        translateY(-50%)
+        scale(0.94);
+    }
+
+
+    .carousel-prev {
+      left: 20px;
+    }
+
+
+    .carousel-next {
+      right: 20px;
+    }
+
+
+    /* =====================================================
+       DOT NAVIGATION
+    ===================================================== */
+
+    .carousel-dots {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-top: 25px;
+    }
+
+
+    .carousel-dot {
+      width: 7px;
+
+      height: 7px;
+
+      padding: 0;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background: #444;
+
+      cursor: pointer;
+
+      transition:
+        width 0.3s ease,
+        background 0.3s ease;
+    }
+
+
+    .carousel-dot.active {
+      width: 25px;
+
+      border-radius: 10px;
+
+      background: #ffcc00;
+    }
+
+
+    /* =====================================================
+       SWIPE HINT
+    ===================================================== */
+
+    .swipe-hint {
+      margin-top: 17px;
+
+      color: #666;
+
+      font-size: 11px;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =====================================================
+       LOADING / EMPTY
+    ===================================================== */
+
+    .loading,
+    .no-content {
+      width: 100vw;
+
+      min-height: 350px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color: #888;
+
+      font-size: 15px;
+    }
+
+
+    /* =====================================================
+       LARGE DESKTOP
+    ===================================================== */
+
+    @media (min-width: 1400px) {
+
+      .content-card {
+        flex-basis: 46vw;
+
+        width: 46vw;
+
+        max-width: 680px;
+
+        min-height: 380px;
+      }
+
+    }
+
+
+    /* =====================================================
+       TABLET
+    ===================================================== */
+
+    @media (max-width: 1000px) {
+
+      .container {
+        padding: 45px 0 60px;
+      }
+
+
+      h1 {
+        font-size: 3rem;
+      }
+
+
+      .services-carousel {
+        margin-top: 50px;
+      }
+
+
+      #content {
+        gap: 20px;
+      }
+
+
+      .content-card {
+        flex-basis: 62vw;
+
+        width: 62vw;
+
+        min-height: 420px;
+
+        padding: 45px;
+      }
+
+
+      .content-card::before {
+        left: 40px;
+
+        right: 40px;
+      }
+
+
+      .content-body h2 {
+        font-size: 2.6rem;
+      }
+
+
+      .service-list li {
+        font-size: 15px;
+      }
+
+
+      .carousel-arrow {
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 19px;
+      }
+
+
+      .carousel-prev {
+        left: 15px;
+      }
+
+
+      .carousel-next {
+        right: 15px;
+      }
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+       
+       Optimized specifically for phones:
+       - Smaller card
+       - More visible neighboring cards
+       - Better spacing
+       - Easier swipe
+    ===================================================== */
+
+    @media (max-width: 700px) {
+
+      .container {
+        padding: 35px 0 45px;
+      }
+
+
+      /* ---------------------------------------------------
+         TITLE
+      --------------------------------------------------- */
+
+      h1 {
+        font-size: 2.35rem;
+
+        letter-spacing: 1px;
+      }
+
+
+      h1::after {
+        width: 70px;
+
+        height: 3px;
+
+        margin-top: 14px;
+      }
+
+
+      /* ---------------------------------------------------
+         CAROUSEL
+      --------------------------------------------------- */
+
+      .services-carousel {
+        margin-top: 38px;
+      }
+
+
+      #content {
+        gap: 12px;
+      }
+
+
+      /* ---------------------------------------------------
+         MOBILE CARD
+
+         80vw gives enough room to see a portion of the
+         cards on both sides.
+      --------------------------------------------------- */
+
+      .content-card {
+        flex: 0 0 80vw;
+
+        width: 80vw;
+
+        min-height: 420px;
+
+        padding: 38px 24px;
+
+        border-radius: 20px;
+      }
+
+
+      /* ---------------------------------------------------
+         GOLD TOP LINE
+      --------------------------------------------------- */
+
+      .content-card::before {
+        left: 25px;
+
+        right: 25px;
+
+        height: 2px;
+      }
+
+
+      /* ---------------------------------------------------
+         ACTIVE CARD
+      --------------------------------------------------- */
+
+      .content-card.active {
+        transform: scale(1);
+      }
+
+
+      /* ---------------------------------------------------
+         SIDE CARDS
+      --------------------------------------------------- */
+
+      .content-card.side-card {
+        transform: scale(0.88);
+      }
+
+
+      /* ---------------------------------------------------
+         CARD NUMBER
+      --------------------------------------------------- */
+
+      .card-number {
+        top: 22px;
+
+        right: 22px;
+
+        font-size: 11px;
+      }
+
+
+      /* ---------------------------------------------------
+         CONTENT
+      --------------------------------------------------- */
+
+      .content-body {
+        padding-top: 22px;
+      }
+
+
+      /* ---------------------------------------------------
+         SERVICE TITLE
+      --------------------------------------------------- */
+
+      .content-body h2 {
+        font-size: 2rem;
+
+        line-height: 1.1;
+
+        margin-bottom: 24px;
+
+        padding-right: 25px;
+      }
+
+
+      /* ---------------------------------------------------
+         SERVICE LIST
+      --------------------------------------------------- */
+
+      .service-list {
+        gap: 11px;
+      }
+
+
+      .service-list li {
+        font-size: 13.5px;
+
+        line-height: 1.45;
+
+        padding-left: 20px;
+      }
+
+
+      .service-list li::before {
+        width: 5px;
+
+        height: 5px;
+
+        top: 8px;
+      }
+
+
+      /* ---------------------------------------------------
+         HIDE ARROWS
+      --------------------------------------------------- */
+
+      .carousel-arrow {
+        display: none;
+      }
+
+
+      /* ---------------------------------------------------
+         DOTS
+      --------------------------------------------------- */
+
+      .carousel-dots {
+        margin-top: 18px;
+
+        gap: 7px;
+      }
+
+
+      .carousel-dot {
+        width: 6px;
+
+        height: 6px;
+      }
+
+
+      .carousel-dot.active {
+        width: 22px;
+      }
+
+
+      /* ---------------------------------------------------
+         SWIPE HINT
+      --------------------------------------------------- */
+
+      .swipe-hint {
+        margin-top: 13px;
+
+        font-size: 9px;
+
+        letter-spacing: 1.2px;
+      }
+
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ===================================================== */
+
+    @media (max-width: 400px) {
+
+      .container {
+        padding: 32px 0 42px;
+      }
+
+
+      h1 {
+        font-size: 2.15rem;
+      }
+
+
+      .services-carousel {
+        margin-top: 35px;
+      }
+
+
+      #content {
+        gap: 10px;
+      }
+
+
+      .content-card {
+        flex: 0 0 82vw;
+
+        width: 82vw;
+
+        min-height: 400px;
+
+        padding: 36px 22px;
+
+        border-radius: 19px;
+      }
+
+
+      .content-card::before {
+        left: 23px;
+
+        right: 23px;
+      }
+
+
+      .card-number {
+        top: 21px;
+
+        right: 21px;
+
+        font-size: 10px;
+      }
+
+
+      .content-body {
+        padding-top: 21px;
+      }
+
+
+      .content-body h2 {
+        font-size: 1.85rem;
+
+        margin-bottom: 23px;
+      }
+
+
+      .service-list {
+        gap: 10px;
+      }
+
+
+      .service-list li {
+        font-size: 13px;
+
+        line-height: 1.43;
+      }
+
+    }
+
+
+    /* =====================================================
+       VERY SMALL PHONES
+    ===================================================== */
+
+    @media (max-width: 350px) {
+
+      h1 {
+        font-size: 2rem;
+      }
+
+
+      .content-card {
+        flex-basis: 84vw;
+
+        width: 84vw;
+
+        min-height: 390px;
+
+        padding: 34px 20px;
+      }
+
+
+      .content-body h2 {
+        font-size: 1.75rem;
+      }
+
+
+      .service-list li {
+        font-size: 12.5px;
+      }
+
+    }
+
+
+    /* =====================================================
+       REDUCED MOTION
+    ===================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+
+        transition: none !important;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       MAIN
+  ===================================================== -->
+
+  <main class="container">
+
+
+    <!-- ===================================================
+         TITLE
+    ==================================================== -->
+
+    <h1>
+      SERVICES
+    </h1>
+
+
+    <!-- ===================================================
+         CAROUSEL
+    ==================================================== -->
+
+    <div
+      class="services-carousel"
+      id="servicesCarousel"
+    >
+
+
+      <!-- =================================================
+           PREVIOUS BUTTON
+      ================================================== -->
+
+      <button
+        type="button"
+        class="carousel-arrow carousel-prev"
+        id="prevButton"
+        aria-label="Previous service"
+      >
+        &#8592;
+      </button>
+
+
+      <!-- =================================================
+           VIEWPORT
+      ================================================== -->
+
+      <div
+        class="carousel-viewport"
+        id="carouselViewport"
+      >
+
+
+        <!-- ===============================================
+             TRACK
+        ================================================ -->
+
+        <div id="content">
+
+          <div class="loading">
+            Loading...
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- =================================================
+           NEXT BUTTON
+      ================================================== -->
+
+      <button
+        type="button"
+        class="carousel-arrow carousel-next"
+        id="nextButton"
+        aria-label="Next service"
+      >
+        &#8594;
+      </button>
+
+
+    </div>
+
+
+    <!-- ===================================================
+         DOT NAVIGATION
+    ==================================================== -->
+
+    <div
+      class="carousel-dots"
+      id="carouselDots"
+    ></div>
+
+
+    <!-- ===================================================
+         SWIPE HINT
+    ==================================================== -->
+
+    <div class="swipe-hint">
+      Swipe to explore services
+    </div>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       FIREBASE / CMS
+  ====================================================== -->
+
+  <script type="module">
+
+    import {
+      getCollection
+    } from "./dynamic-content.js";
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const container =
+      document.getElementById("content");
+
+    const viewport =
+      document.getElementById("carouselViewport");
+
+    const dotsContainer =
+      document.getElementById("carouselDots");
+
+    const prevButton =
+      document.getElementById("prevButton");
+
+    const nextButton =
+      document.getElementById("nextButton");
+
+
+    /* =====================================================
+       CAROUSEL STATE
+    ===================================================== */
+
+    let currentIndex = 0;
+
+    let totalSlides = 0;
+
+    let startX = 0;
+
+    let currentX = 0;
+
+    let isDragging = false;
+
+    let dragDistance = 0;
+
+    let startY = 0;
+
+    let isHorizontalGesture = false;
+
+
+    /* =====================================================
+       LOAD SERVICES
+    ===================================================== */
+
+    async function loadServices() {
+
+      try {
+
+        const items =
+          await getCollection("filmmaking");
+
+
+        /* -------------------------------------------------
+           EMPTY
+        ------------------------------------------------- */
+
+        if (
+          !items ||
+          !items.length
+        ) {
+
+          container.innerHTML = `
+            <div class="no-content">
+              No Services available yet.
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        /* -------------------------------------------------
+           TOTAL SLIDES
+        ------------------------------------------------- */
+
+        totalSlides =
+          items.length;
+
+
+        /* -------------------------------------------------
+           CREATE SERVICE CARDS
+        ------------------------------------------------- */
+
+        container.innerHTML =
+          items
+            .map(
+              (
+                item,
+                index
+              ) => {
+
+                const services =
+                  formatServices(
+                    item.description
+                  );
+
+
+                return `
+
+                  <article
+                    class="content-card"
+                    data-index="${index}"
+                  >
+
+                    <div class="card-number">
+
+                      ${String(index + 1).padStart(2, "0")}
+
+                      /
+
+                      ${String(items.length).padStart(2, "0")}
+
+                    </div>
+
+
+                    <div class="content-body">
+
+                      <h2>
+                        ${escapeHtml(
+                          item.title ||
+                          "Service"
+                        )}
+                      </h2>
+
+
+                      ${
+                        services.length
+
+                        ?
+
+                        `
+                          <ul class="service-list">
+
+                            ${
+                              services
+                                .map(
+                                  service => `
+
+                                    <li>
+                                      ${escapeHtml(service)}
+                                    </li>
+
+                                  `
+                                )
+                                .join("")
+                            }
+
+                          </ul>
+                        `
+
+                        :
+
+                        `
+                          <div class="empty-services">
+                            ${escapeHtml(
+                              item.description ||
+                              ""
+                            )}
+                          </div>
+                        `
+                      }
+
+                    </div>
+
+                  </article>
+
+                `;
+
+              }
+            )
+            .join("");
+
+
+        /* -------------------------------------------------
+           CREATE DOTS
+        ------------------------------------------------- */
+
+        createDots();
+
+
+        /* -------------------------------------------------
+           INITIALIZE
+        ------------------------------------------------- */
+
+        updateCarousel(false);
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Services loading error:",
+          error
+        );
+
+
+        container.innerHTML = `
+          <div class="no-content">
+            Unable to load Services.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       FORMAT SERVICES
+    ===================================================== */
+
+    function formatServices(
+      description = ""
+    ) {
+
+      return String(description)
+
+        .split(/\r?\n/)
+
+        .map(
+          item =>
+            item.trim()
+        )
+
+        .filter(
+          item =>
+            item.length > 0
+        );
+
+    }
+
+
+    /* =====================================================
+       GET CARD WIDTH
+    ===================================================== */
+
+    function getCardWidth() {
+
+      const card =
+        container.querySelector(
+          ".content-card"
+        );
+
+
+      if (!card) {
+        return 0;
+      }
+
+
+      return card.offsetWidth;
+
+    }
+
+
+    /* =====================================================
+       GET GAP
+    ===================================================== */
+
+    function getGap() {
+
+      const styles =
+        window.getComputedStyle(
+          container
+        );
+
+
+      return parseFloat(
+        styles.columnGap ||
+        styles.gap ||
+        0
+      );
+
+    }
+
+
+    /* =====================================================
+       CENTER ACTIVE CARD
+    ===================================================== */
+
+    function getCenterOffset() {
+
+      const cardWidth =
+        getCardWidth();
+
+
+      const gap =
+        getGap();
+
+
+      const viewportWidth =
+        viewport.offsetWidth;
+
+
+      const firstCardCenter =
+        cardWidth / 2;
+
+
+      const activeCardCenter =
+        firstCardCenter +
+        currentIndex *
+        (
+          cardWidth +
+          gap
+        );
+
+
+      return (
+        viewportWidth / 2
+      ) -
+      activeCardCenter;
+
+    }
+
+
+    /* =====================================================
+       UPDATE CAROUSEL
+    ===================================================== */
+
+    function updateCarousel(
+      animate = true
+    ) {
+
+      if (!totalSlides) {
+        return;
+      }
+
+
+      if (!animate) {
+
+        container.style.transition =
+          "none";
+
+      }
+
+      else {
+
+        container.style.transition =
+          "";
+
+      }
+
+
+      const offset =
+        getCenterOffset();
+
+
+      container.style.transform =
+        `translateX(${offset}px)`;
+
+
+      /* -------------------------------------------------
+         ACTIVE CARD
+      ------------------------------------------------- */
+
+      const cards =
+        container.querySelectorAll(
+          ".content-card"
+        );
+
+
+      cards.forEach(
+        (
+          card,
+          index
+        ) => {
+
+          card.classList.toggle(
+            "active",
+            index === currentIndex
+          );
+
+
+          card.classList.toggle(
+            "side-card",
+            index !== currentIndex
+          );
+
+        }
+      );
+
+
+      /* -------------------------------------------------
+         DOTS
+      ------------------------------------------------- */
+
+      const dots =
+        dotsContainer.querySelectorAll(
+          ".carousel-dot"
+        );
+
+
+      dots.forEach(
+        (
+          dot,
+          index
+        ) => {
+
+          dot.classList.toggle(
+            "active",
+            index === currentIndex
+          );
+
+        }
+      );
+
+
+      /* -------------------------------------------------
+         RESTORE TRANSITION
+      ------------------------------------------------- */
+
+      if (!animate) {
+
+        requestAnimationFrame(
+          () => {
+
+            container.style.transition =
+              "";
+
+          }
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       NEXT SLIDE
+    ===================================================== */
+
+    function nextSlide() {
+
+      if (
+        currentIndex <
+        totalSlides - 1
+      ) {
+
+        currentIndex++;
+
+      }
+
+      else {
+
+        currentIndex = 0;
+
+      }
+
+
+      updateCarousel();
+
+    }
+
+
+    /* =====================================================
+       PREVIOUS SLIDE
+    ===================================================== */
+
+    function previousSlide() {
+
+      if (
+        currentIndex >
+        0
+      ) {
+
+        currentIndex--;
+
+      }
+
+      else {
+
+        currentIndex =
+          totalSlides - 1;
+
+      }
+
+
+      updateCarousel();
+
+    }
+
+
+    /* =====================================================
+       CREATE DOTS
+    ===================================================== */
+
+    function createDots() {
+
+      dotsContainer.innerHTML = "";
+
+
+      for (
+        let i = 0;
+        i < totalSlides;
+        i++
+      ) {
+
+        const dot =
+          document.createElement(
+            "button"
+          );
+
+
+        dot.type =
+          "button";
+
+
+        dot.className =
+          "carousel-dot";
+
+
+        dot.setAttribute(
+          "aria-label",
+          `Go to service ${i + 1}`
+        );
+
+
+        dot.addEventListener(
+          "click",
+          () => {
+
+            currentIndex =
+              i;
+
+            updateCarousel();
+
+          }
+        );
+
+
+        dotsContainer.appendChild(
+          dot
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       ARROW BUTTONS
+    ===================================================== */
+
+    prevButton.addEventListener(
+      "click",
+      previousSlide
+    );
+
+
+    nextButton.addEventListener(
+      "click",
+      nextSlide
+    );
+
+
+    /* =====================================================
+       START DRAG
+    ===================================================== */
+
+    function dragStart(
+      x,
+      y
+    ) {
+
+      if (!totalSlides) {
+        return;
+      }
+
+
+      isDragging = true;
+
+      isHorizontalGesture = false;
+
+      startX = x;
+
+      currentX = x;
+
+      startY = y;
+
+      dragDistance = 0;
+
+
+      viewport.classList.add(
+        "dragging"
+      );
+
+
+      container.classList.add(
+        "dragging"
+      );
+
+
+      container.style.transition =
+        "none";
+
+    }
+
+
+    /* =====================================================
+       DRAG MOVE
+
+       Detect horizontal movement first so vertical page
+       scrolling remains natural on mobile.
+    ===================================================== */
+
+    function dragMove(
+      x,
+      y
+    ) {
+
+      if (!isDragging) {
+        return;
+      }
+
+
+      const deltaX =
+        x - startX;
+
+
+      const deltaY =
+        y - startY;
+
+
+      /* -------------------------------------------------
+         Determine gesture direction
+      ------------------------------------------------- */
+
+      if (
+        !isHorizontalGesture &&
+        (
+          Math.abs(deltaX) > 8 ||
+          Math.abs(deltaY) > 8
+        )
+      ) {
+
+        if (
+          Math.abs(deltaX) >
+          Math.abs(deltaY)
+        ) {
+
+          isHorizontalGesture =
+            true;
+
+        }
+
+        else {
+
+          isDragging =
+            false;
+
+          viewport.classList.remove(
+            "dragging"
+          );
+
+          container.classList.remove(
+            "dragging"
+          );
+
+          container.style.transition =
+            "";
+
+          return;
+
+        }
+
+      }
+
+
+      if (!isHorizontalGesture) {
+        return;
+      }
+
+
+      currentX = x;
+
+      dragDistance = deltaX;
+
+
+      const baseOffset =
+        getCenterOffset();
+
+
+      container.style.transform =
+        `translateX(${baseOffset + dragDistance}px)`;
+
+    }
+
+
+    /* =====================================================
+       END DRAG
+    ===================================================== */
+
+    function dragEnd() {
+
+      if (!isDragging) {
+        return;
+      }
+
+
+      isDragging = false;
+
+
+      viewport.classList.remove(
+        "dragging"
+      );
+
+
+      container.classList.remove(
+        "dragging"
+      );
+
+
+      /* -------------------------------------------------
+         SWIPE THRESHOLD
+      ------------------------------------------------- */
+
+      const threshold =
+        Math.min(
+          90,
+          viewport.offsetWidth * 0.12
+        );
+
+
+      if (
+        isHorizontalGesture &&
+        Math.abs(dragDistance) > threshold
+      ) {
+
+        if (dragDistance < 0) {
+
+          nextSlide();
+
+        }
+
+        else {
+
+          previousSlide();
+
+        }
+
+      }
+
+      else {
+
+        updateCarousel();
+
+      }
+
+
+      isHorizontalGesture = false;
+
+    }
+
+
+    /* =====================================================
+       TOUCH START
+    ===================================================== */
+
+    viewport.addEventListener(
+      "touchstart",
+      event => {
+
+        if (
+          event.touches.length !== 1
+        ) {
+
+          return;
+
+        }
+
+
+        dragStart(
+          event.touches[0].clientX,
+          event.touches[0].clientY
+        );
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /* =====================================================
+       TOUCH MOVE
+    ===================================================== */
+
+    viewport.addEventListener(
+      "touchmove",
+      event => {
+
+        if (!isDragging) {
+          return;
+        }
+
+
+        dragMove(
+          event.touches[0].clientX,
+          event.touches[0].clientY
+        );
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /* =====================================================
+       TOUCH END
+    ===================================================== */
+
+    viewport.addEventListener(
+      "touchend",
+      dragEnd
+    );
+
+
+    viewport.addEventListener(
+      "touchcancel",
+      dragEnd
+    );
+
+
+    /* =====================================================
+       MOUSE DOWN
+    ===================================================== */
+
+    viewport.addEventListener(
+      "mousedown",
+      event => {
+
+        event.preventDefault();
+
+
+        dragStart(
+          event.clientX,
+          event.clientY
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       MOUSE MOVE
+    ===================================================== */
+
+    window.addEventListener(
+      "mousemove",
+      event => {
+
+        if (isDragging) {
+
+          dragMove(
+            event.clientX,
+            event.clientY
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       MOUSE UP
+    ===================================================== */
+
+    window.addEventListener(
+      "mouseup",
+      dragEnd
+    );
+
+
+    /* =====================================================
+       KEYBOARD NAVIGATION
+    ===================================================== */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "ArrowRight"
+        ) {
+
+          nextSlide();
+
+        }
+
+
+        if (
+          event.key ===
+          "ArrowLeft"
+        ) {
+
+          previousSlide();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       WINDOW RESIZE
+    ===================================================== */
+
+    let resizeTimer;
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        clearTimeout(
+          resizeTimer
+        );
+
+
+        resizeTimer =
+          setTimeout(
+            () => {
+
+              updateCarousel(false);
+
+            },
+            100
+          );
+
+      }
+    );
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHtml(
+      value = ""
+    ) {
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    loadServices();
+
+  </script>
+
+</body>
+
+</html>

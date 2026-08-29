@@ -1,0 +1,31 @@
+# PUBLIC PAGE INTEGRATION
+
+The current public pages are still static. The admin dashboard is fully prepared to write data to Firebase, but the public pages must read that data.
+
+For the portfolio page, replace the hard-coded six image elements with:
+
+<script type="module">
+import { getCollection } from "./dynamic-content.js";
+
+const items = await getCollection("portfolio", "order");
+const gallery = document.querySelector(".portfolio-gallery");
+
+gallery.innerHTML = items.map(item => `
+  <div class="portfolio-item" data-title="${item.title.replaceAll('"','&quot;')}">
+    <img src="${item.imageUrl}" alt="${item.title}">
+  </div>
+`).join("");
+</script>
+
+For the home page, use getSiteSettings() and apply:
+- heroTitle
+- heroSubtitle
+- profileUrl
+- portfolioBg
+- blogsBg
+- filmBg
+- startupBg
+
+The same pattern can be used for blogs, filmmaking and startups.
+
+This is intentionally separated from the admin so a mistake in the public UI cannot grant admin privileges.
